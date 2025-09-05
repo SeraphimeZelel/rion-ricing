@@ -1,0 +1,36 @@
+{
+    "label" : "lock",
+    "action" : "loginctl lock-session",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
+    "label" : "reboot",
+    "action" : "gnome-session-quit --reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}
+{
+    "label" : "shutdown",
+    "action" : "gnome-session-quit --power-off",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+{
+    "label" : "logout",
+    "action" : "gnome-session-quit",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
+}

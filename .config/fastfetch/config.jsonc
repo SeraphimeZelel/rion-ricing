@@ -1,0 +1,59 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "kitty-direct",
+    "source": "/home/rionzaphkiel/.config/fastfetch/logo/john_wuthering.png",
+    "padding": {
+      "top": 1,
+      "left": 2
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "color": {
+      "title": "yellow"
+    }
+  },
+  "modules": [
+    "break",
+    "title",
+    {
+      "type": "os",
+      "key": "os    ",
+      "keyColor": "white"
+    },
+    {
+      "type": "wm",
+      "key": "de    ",
+      "keyColor": "white"
+    },
+    {
+      "type": "shell",
+      "key": "shell ",
+      "keyColor": "white"
+    },
+    {
+      "type": "uptime",
+      "format": "{2}h {3}m",
+      "key": "uptime",
+      "keyColor": "white"
+    },
+    {
+      "type": "command",
+      "key": "os age",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s);    days_difference=$(( (current - birth_install) / 86400 )); echo $days_difference days",
+      "keyColor": "white"
+    },
+    {
+      "type": "memory",
+      "key": "memory",
+      "keyColor": "white"
+    },
+    {
+      "type": "command",
+      "key": "wife  ",
+      "format": "Artoria Pendragon",
+      "keyColor": "white"
+    }
+  ]
+}
