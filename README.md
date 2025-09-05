@@ -1,5 +1,13 @@
 # rion-ricing
-Hey quick overview here. 
+Hey quick overview here. This contains My **GNOME** Dotfiles for a Hyprland-looks Setup. This is my way to cope for the Endfield that never comes, hopefully there'll be news on The TGS. Later on i'll make the details how to do my config, but for now i'm too lazy to make a good readme.md for that lol.
+
+***ENJOY!!***
+- Rion
+
+> [!WARNING] 
+>  
+> All Configurations were meant to be used with `Pywal`
+>
 
 # Extension
 
