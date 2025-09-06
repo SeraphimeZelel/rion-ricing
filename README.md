@@ -4,6 +4,7 @@ Hey quick overview here. This contains My **GNOME** Dotfiles for a Hyprland-look
 [![Watch the video](https://img.youtube.com/vi/tJPglNR69ok/hqdefault.jpg)](https://youtu.be/tJPglNR69ok)
 
 ***ENJOY!!***
+
 -RionZaphkiel
 
 > [!WARNING] 
