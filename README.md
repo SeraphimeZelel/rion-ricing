@@ -1,8 +1,10 @@
 # rion-ricing
-Hey quick overview here. This contains My **GNOME** Dotfiles for a Hyprland-looks Setup. This is my way to cope for the Endfield that never comes, hopefully there'll be news on The TGS. Later on i'll make the details how to do my config, but for now i'm too lazy to make a good readme.md for that lol.
+Hey quick overview here. This contains My **GNOME** Dotfiles for a Hyprland-looks Setup. This is my way to cope for the Endfield that never comes, hopefully there'll be news on The TGS. Later on i'll make the details how to do my config, but for now i'm too lazy to make a good docs for that lol.
+
+[![Watch the video](https://img.youtube.com/vi/tJPglNR69ok/hqdefault.jpg)](https://youtu.be/tJPglNR69ok)
 
 ***ENJOY!!***
-- Rion
+-RionZaphkiel
 
 > [!WARNING] 
 >  
