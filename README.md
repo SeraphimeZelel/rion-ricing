@@ -31,12 +31,44 @@ Tiling and window manager for GNOME.
 ### Settings
 You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
 
-> <details>
-> <summary>📸 Show Screenshot</summary>
->
-> 
->
-> </details>
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/forge/forge_1.png" alt="forge1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/forge/forge_2.png" alt="forge2" width="500">
+</p>
+
+</details>
+
+---
+</details>
+
+<details>
+<summary>🌫️ Blur My Shell</summary>
+
+### Description
+Adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
+
+### Settings
+You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
+
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/blur-my-shell/blur_1.png" alt="blur1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/blur-my-shell/blur_2.png" alt="blur2" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/blur-my-shell/blur_3.png" alt="blur3" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/blur-my-shell/blur_4.png" alt="blur4" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/blur-my-shell/blur_5.png" alt="blur5" width="500">
+</p>
+
+</details>
 
 ---
 </details>
@@ -51,12 +83,21 @@ Tweak Tool to Customize GNOME Shell, Change the Behavior and Disable UI Elements
 ### Settings
 You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
 
-> <details>
-> <summary>📸 Show Screenshot</summary>
->
-> 
->
-> </details>
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/jp_1.png" alt="jp1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/jp_2.png" alt="jp2" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/jp_3.png" alt="jp3" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/jp_4.png" alt="jp4" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/jp_5.png" alt="jp5" width="500">
+</p>
+
+</details>
+
 
 ---
 </details>
@@ -71,12 +112,20 @@ Show controls and information of the currently playing media in the panel.
 ### Settings
 You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
 
-> <details>
-> <summary>📸 Show Screenshot</summary>
->
-> 
->
-> </details>
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/media-controls/mc_1.png" alt="mc1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/mc_2.png" alt="mc2" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/mc_3.png" alt="mc3" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/mc_4.png" alt="mc4" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/just-perfection/mc_5.png" alt="mc5" width="500">
+</p>
+
+</details>
 
 ---
 </details>
@@ -92,16 +141,21 @@ Top Bar / Top Panel , Menus , Dash / Dock , Gnome Shell , Gtk Apps theming. Open
 ### Settings
 You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
 
-> <details>
-> <summary>📸 Show Screenshot</summary>
->
-> 
->
-> </details>
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/open-bar/bar_1.png" alt="bar1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/open-bar/bar_2.png" alt="bar2" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/open-bar/bar_3.png" alt="bar3" width="500">
+</p>
+
+</details>
 
 ---
 </details>
-
 
 
 <details>
@@ -113,18 +167,25 @@ Enhances the quick settings menu with extra toggles and controls.
 ### Settings
 You can follow my settings to get the same style in screenshot below, or you can tweak it as you will.
 
-> <details>
-> <summary>📸 Show Screenshot</summary>
->
-> 
->
-> </details>
+<details>
+<summary>📸 Show Screenshot</summary>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/quick-settings-tweak/qs_1.png" alt="qs1" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/quick-settings-tweak/qs_2.png" alt="qs2" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/quick-settings-tweak/qs_3.png" alt="qs3" width="500">
+  <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/quick-settings-tweak/qs_4.png" alt="qs4" width="500">
+</p>
+
+</details>
 
 ---
 </details>
 
 <details>
-<summary>Other cool extension</summary>
+<summary>✨ Other cool extension</summary>
 
 - Clipboard Indicator : The most popular clipboard manager for GNOME
 
@@ -141,6 +202,13 @@ You can follow my settings to get the same style in screenshot below, or you can
 ## Applications
 <details>
   <summary>🎨 BetterDiscord</summary>
+
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/better-discord/bd-1.png" alt="better-discord1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/better-discord/bd-2.png" alt="better-discord2" width="500">
+  </p>
 
 ### Overview
 - ✔️ BetterDiscord is a client mod with endless flexibility and addons. The only limit to the customization is your own imagination.
@@ -165,6 +233,13 @@ You can follow my settings to get the same style in screenshot below, or you can
 <details>
   <summary>📊 btop</summary>
 
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/btop/btop_1.png" alt="btop1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/btop/btop_2.png" alt="btop2" width="500">
+  </p>
+
 ### Overview
 Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
 
@@ -179,6 +254,13 @@ Resource monitor that shows usage and stats for processor, memory, disks, networ
 
 <details>
   <summary>🎶 Cava</summary>
+
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/cava/cava_1.png" alt="cava1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/cava/cava_2.png" alt="cava2" width="500">
+  </p>
 
 ### Overview  
 Cross-platform Audio Visualizer. Cava is a bar spectrum audio visualizer for terminal or desktop (SDL).
@@ -195,6 +277,14 @@ Cross-platform Audio Visualizer. Cava is a bar spectrum audio visualizer for ter
 
 <details>
   <summary>⚡ Fastfetch</summary>
+
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/fastfetch/ff_1.png" alt="ff1" width="330">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/fastfetch/ff_2.png" alt="ff2" width="330">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/fastfetch/ff_3.png" alt="ff3" width="330">
+  </p>
   
 ### Overview
 Fastfetch is a neofetch-like tool for fetching system information and displaying it in a visually appealing way. It is written mainly in C, with a focus on performance and customizability. Currently, it supports Linux, macOS, Windows 7+, Android, FreeBSD, OpenBSD, NetBSD, DragonFly, Haiku, and SunOS.
@@ -245,6 +335,13 @@ WezTerm is a powerful cross-platform terminal emulator and multiplexer written b
 <details>
   <summary>🚪 Wlogout</summary>
 
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wlogout/wlogout_1.png" alt="wlogout1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wlogout/wlogout_2.png" alt="wlogout2" width="500">
+  </p>
+
 ### Overview
 A Wayland-based logout menu.
 
@@ -260,6 +357,20 @@ A Wayland-based logout menu.
 
 <details>
   <summary>🔍 Wofi</summary>
+
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wofi/wofi_1.png" alt="wofi1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wofi/wofi_2.png" alt="wofi2" width="500">
+  </p>
+  
+  <br>
+
+  <p align="center">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wofi/wofi_wallpaper_1.png" alt="wofiwp1" width="500">
+    <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/wofi/wofi_wallpaper_2.png" alt="wofiwp2" width="500">
+  </p>
 
 ### Overview
 Wofi is a launcher/menu program for wlroots-based Wayland compositors such as sway.
@@ -335,7 +446,45 @@ pip install colorz
 pip install haishoku
 ```
 
-#### Color Backend Palette Comparison 
+#### Color Backend Palette Comparison
+
+<br>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_1_default.png" alt="default" width="330"><br>
+      <b><code>default</code></b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_1_colorz.png" alt="colorz" width="330"><br>
+      <b><code>colorz</code></b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_1_haishoku.png" alt="haishoku" width="330"><br>
+      <b><code>haishoku</code></b>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_2_default.png" alt="default" width="330"><br>
+      <b><code>default</code></b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_2_colorz.png" alt="colorz" width="330"><br>
+      <b><code>colorz</code></b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/color-backend/cb_haishoku.png" alt="haishoku" width="330"><br>
+      <b><code>haishoku</code></b>
+    </td>
+  </tr>
+</table>
 
 
 ---
@@ -385,21 +534,73 @@ pip install haishoku
 </details>
 
 
-## Help
+## 🛠 Help & Setup Guide
 
-A quick setup
+> [!WARNING]  
+> The instructions below will **overwrite your existing config files**.  
+> Don’t worry — your old configs will be safely moved into a backup folder with a timestamp.  
 
-1. Clone the repo
 
-2. Symlink the Config
+Quick setup instructions:
 
-3. Symlink the Script 
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/SeraphimeZelel/rion-ricing.git ~/.rion-dotfiles
+   ```
+2. **Symlink the config files**
+   ```bash
+    #!/bin/bash
 
-3. Chmod the Script.
+    DOTFILES="$HOME/.rion-dotfiles/.config"
+    CONFIG="$HOME/.config"
+    BACKUP="$HOME/.config-backup-$(date +%Y%m%d_%H%M%S)"
 
-Later, I'll make the video on how to setup from the start (in nobara).
+    mkdir -p "$BACKUP"
 
-## Notes
+    for dir in "$DOTFILES"/*; do
+        name=$(basename "$dir")
+
+        # if ~/.config/dir exists, move it to backup
+        if [ -e "$CONFIG/$name" ]; then
+            echo "Backing up $CONFIG/$name → $BACKUP/$name"
+            mv "$CONFIG/$name" "$BACKUP/"
+        fi
+
+        # create symlink
+        echo "Linking $dir → $CONFIG/$name"
+        ln -s "$dir" "$CONFIG/$name"
+    done
+
+    echo "✅ All configs linked. Backup saved in $BACKUP"
+   ```
+3. **Symlink the scripts**
+   ```bash
+   ln -s ~/.rion-dotfiles/.script/* ~/.local/bin
+   ```
+4. **Make scripts executable**
+   ```bash
+   chmod +x ~/.local/bin/*
+   ```
+
+## 📝 Notes
+If `wallpaper-picker.sh` fails to set your wallpaper, try renaming the file with the prefix `Anything_`.
+  Example:
+  ```
+  Endfield_NotReal.png
+  Endfield_Tomorrow.png
+  ```
+
+### ⌨️  Keyboard Shortcut
+
+| Name             | Command   | Shortcut  |
+|------------------|-----------|-----------|
+| File Manager     | `nautilus` | `Super + E` |
+| Wallpaper Picker | `/home/yourname/.local/bin/wallpaper-picker.sh` | `Alt + W`   |
+| WezTerm          | `wezterm`  | `Super + T` |
+| wlogout          | `wlogout`  | `Alt + L`   |
+| wofi             | `wofi`     | `Alt + F`   |
+
+---
 
 
 <div align=center>
@@ -407,3 +608,17 @@ Later, I'll make the video on how to setup from the start (in nobara).
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=30&duration=2000&pause=2500&color=DFCB00&center=true&vCenter=true&width=435&lines=Endfield+Copium+Corner)](https://git.io/typing-svg)
 
 </div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/gif/EndfieldNotReal.gif" alt="Endfield not Real" width="330">
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/gif/copium.gif" alt="Copium" width="330">
+    </td>
+    <td align="center">
+      <img src="https://github.com/SeraphimeZelel/rion-ricing/blob/main/images/gif/endfieldtomorrow.gif" alt="endfieldtomorrow" width="330"><br>
+    </td>
+  </tr>
+</table>
