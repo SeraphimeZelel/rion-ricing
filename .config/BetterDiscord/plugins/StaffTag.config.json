@@ -1,0 +1,41 @@
+{
+	"all": {
+		"customTitles": {
+			"owner": "",
+			"groupOwner": "",
+			"forumCreator": "",
+			"threadCreator": "",
+			"admin": "",
+			"management": ""
+		},
+		"general": {
+			"useCrown": true,
+			"useRoleColor": true,
+			"useBlackFont": false,
+			"ignoreBots": false,
+			"ignoreMyself": false
+		},
+		"tagPlaces": {
+			"chat": true,
+			"memberList": true,
+			"voiceList": true,
+			"userPopout": true,
+			"userProfile": true
+		},
+		"tagTypes": {
+			"owners": true,
+			"groupOwners": true,
+			"threadCreators": true,
+			"forumCreators": true,
+			"admins": true,
+			"managementG": true,
+			"managementC": true,
+			"managementT": true,
+			"managementE": true,
+			"managementR": true,
+			"managementU": true,
+			"managementV": true,
+			"managementM": true
+		}
+	}
+}

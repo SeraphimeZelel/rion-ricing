@@ -14,4 +14,3 @@ sed -i "s|^gradient_color_2 = '.*'|gradient_color_2 = '$COLOR2'|" "$CAVA_CONFIG"
 
 # Auto-Restart CAVA (if it's running)
 killall -USR1 cava
-

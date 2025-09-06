@@ -1,0 +1,48 @@
+{
+    "general": {
+        "voiceDisconnect": false,
+        "showToasts": true,
+        "mediaKeys": false,
+        "bdContextMenu": true,
+        "themeAttributes": true
+    },
+    "addons": {
+        "addonErrors": false,
+        "editAction": "detached",
+        "checkForUpdates": true,
+        "updateInterval": 4
+    },
+    "store": {
+        "bdAddonStore": true,
+        "alwaysEnable": false,
+        "addonEmbeds": true
+    },
+    "customcss": {
+        "customcss": true,
+        "liveUpdate": true,
+        "openAction": "settings"
+    },
+    "editor": {
+        "lineNumbers": true,
+        "minimap": true,
+        "hover": true,
+        "quickSuggestions": true,
+        "fontSize": 14,
+        "renderWhitespace": "selection"
+    },
+    "window": {
+        "transparency": true,
+        "removeMinimumSize": true,
+        "frame": false,
+        "inAppTrafficLights": false
+    },
+    "developer": {
+        "debugLogs": false,
+        "devTools": false,
+        "debuggerHotkey": false,
+        "reactDevTools": false,
+        "inspectElement": false,
+        "devToolsWarning": false,
+        "recovery": true
+    }
+}

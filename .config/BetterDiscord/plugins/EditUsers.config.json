@@ -1,0 +1,33 @@
+{
+	"all": {
+		"places": {
+			"contextMenu": true,
+			"chatTextarea": true,
+			"chatWindow": true,
+			"reactions": true,
+			"mentions": true,
+			"memberList": true,
+			"voiceChat": true,
+			"recentDms": true,
+			"dmsList": true,
+			"dmHeader": true,
+			"dmCalls": true,
+			"typing": true,
+			"friendList": true,
+			"inviteList": true,
+			"activity": true,
+			"userPanel": true,
+			"userPopout": true,
+			"userProfile": true,
+			"autocompletes": true,
+			"quickSwitcher": true,
+			"searchPopout": true,
+			"userAccount": true,
+			"appTitle": true
+		},
+		"types": {
+			"servers": true,
+			"dms": true
+		}
+	}
+}

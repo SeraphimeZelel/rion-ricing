@@ -1,4 +1,4 @@
-@import url("file:///home/rionzaphkiel/.cache/wal/colors-waybar.css"); /* ambil palet Pywal */
+@import url("file:///home/rionzaphkiel/.cache/wal/colors-waybar.css"); 
 
 /* === Global === */
 * {
@@ -9,12 +9,11 @@
     background-color: transparent;
 }
 
-/* === Window utama === */
+/* === Main Window === */
 window {
     padding: 20px;
     border-radius: 12px;
 
-    /* Campuran background + nuansa @color1 */
     background:
     radial-gradient(circle at top left,     alpha(@color1,0.35), transparent 70%),
     radial-gradient(circle at top right,    alpha(@color1,0.35), transparent 70%),
@@ -66,7 +65,7 @@ window {
     color: @foreground;
 }
 
-/* Item terpilih (highlight nuansa pywal) */
+/* Highlight item */
 #entry:selected {
     background-color: alpha(@color1, 0.2); /* warna highlight */
     border: 1px solid @color1;

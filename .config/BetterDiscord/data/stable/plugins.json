@@ -1,0 +1,16 @@
+{
+    "StaffTag": false,
+    "BDFDB": true,
+    "Hide Channels": false,
+    "EditUsers": false,
+    "BackgroundManager": false,
+    "BetterRoleColors": false,
+    "ZeresPluginLibrary": false,
+    "BetterAnimations": false,
+    "BetterFriendList": false,
+    "MemberCount": false,
+    "BetterFolders": false,
+    "ViewProfilePicture": true,
+    "ImageUtilities": true,
+    "HideDisabledEmojis": true
+}

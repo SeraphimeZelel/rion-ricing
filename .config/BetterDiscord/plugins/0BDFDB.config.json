@@ -1,0 +1,25 @@
+{
+	"all": {
+		"changeLogs": {
+			"BDFDB": "4.2.7",
+			"BetterFriendList": "1.6.3",
+			"EditUsers": "5.0.7",
+			"ImageUtilities": "5.6.3",
+			"StaffTag": "1.6.9"
+		},
+		"choices": {
+			"toastPosition": "right"
+		},
+		"general": {
+			"shareData": true,
+			"showToasts": true,
+			"checkForUpdates": false,
+			"showSupportBadges": false,
+			"useChromium": false
+		},
+		"hashes": {
+			"0BDFDB.data.json": "a9d07bfced7360491909f31e25262dead289759c",
+			"0BDFDB.raw.css": "d0b50a89fc20f5eda9939f0aaf13664ed2b920d0"
+		}
+	}
+}
