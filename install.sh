@@ -18,6 +18,7 @@ APPLY_GNOME_SETTINGS=false
 INSTALL_EXTENSIONS=false
 SKIP_APPS=false
 SKIP_LINKS=false
+RUN_HEALTH_CHECK=false
 
 usage() {
   cat << EOF
@@ -28,6 +29,7 @@ OPTIONS:
   --install-extensions      Auto-install GNOME extensions (requires internet)
   --skip-apps              Skip application installation
   --skip-links             Skip config/script linking
+  --health-check           Run health check after installation
   -h, --help               Show this help message
 
 Examples:
@@ -56,6 +58,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-links)
       SKIP_LINKS=true
+      shift
+      ;;
+    --health-check)
+      RUN_HEALTH_CHECK=true
       shift
       ;;
     -h|--help)
@@ -327,6 +333,19 @@ post_notes() {
   fi
 }
 
+run_health_check() {
+  if [[ "$RUN_HEALTH_CHECK" != "true" ]]; then
+    return
+  fi
+  
+  if [[ -x "$SCRIPT_DIR/verify.sh" ]]; then
+    info "Running health check..."
+    "$SCRIPT_DIR/verify.sh"
+  else
+    warn "verify.sh not found or not executable. Skipping health check."
+  fi
+}
+
 main() {
   info "Starting combined installer"
   ensure_dirs
@@ -336,9 +355,8 @@ main() {
   apply_gnome_settings
   install_gnome_extensions
   ok "All tasks completed. Backup directory: $BACKUP_ROOT"
+  run_health_check
   post_notes
 }
 
 main "$@"
-
-

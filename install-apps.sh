@@ -58,19 +58,25 @@ install_arch() {
     gnome-tweaks
     gnome-shell-extensions
   )
-  local failed=()
-  info "Installing packages with pacman..."
-  for pkg in "${packages[@]}"; do
-    info "Installing $pkg..."
-    if sudo pacman -S --needed --noconfirm "$pkg" | cat; then
-      ok "$pkg installed"
-    else
-      warn "Failed to install $pkg"
-      failed+=("$pkg")
+  
+  info "Installing packages with pacman (batch install)..."
+  if sudo pacman -S --needed --noconfirm "${packages[@]}" | cat; then
+    ok "All packages installed successfully"
+  else
+    warn "Batch install failed, trying individual packages..."
+    local failed=()
+    for pkg in "${packages[@]}"; do
+      info "Installing $pkg..."
+      if sudo pacman -S --needed --noconfirm "$pkg" | cat; then
+        ok "$pkg installed"
+      else
+        warn "Failed to install $pkg"
+        failed+=("$pkg")
+      fi
+    done
+    if (( ${#failed[@]} > 0 )); then
+      warn "Some packages failed on Arch: ${failed[*]}"
     fi
-  done
-  if (( ${#failed[@]} > 0 )); then
-    warn "Some packages failed on Arch: ${failed[*]}"
   fi
 }
 
@@ -90,23 +96,29 @@ install_fedora() {
     gnome-tweaks
     gnome-shell-extensions
   )
-  local failed=()
-  info "Installing packages with dnf..."
-  for pkg in "${packages[@]}"; do
-    info "Installing $pkg..."
-    if sudo dnf -y install "$pkg" | cat; then
-      ok "$pkg installed"
-    else
-      warn "Failed to install $pkg"
-      failed+=("$pkg")
-      # Helpful hint for common cases
-      if [[ "$pkg" == "wezterm" ]]; then
-        warn "WezTerm may require COPR: sudo dnf copr enable wezfurlong/wezterm -y && sudo dnf install wezterm -y"
+  
+  info "Installing packages with dnf (batch install)..."
+  if sudo dnf -y install "${packages[@]}" | cat; then
+    ok "All packages installed successfully"
+  else
+    warn "Batch install failed, trying individual packages..."
+    local failed=()
+    for pkg in "${packages[@]}"; do
+      info "Installing $pkg..."
+      if sudo dnf -y install "$pkg" | cat; then
+        ok "$pkg installed"
+      else
+        warn "Failed to install $pkg"
+        failed+=("$pkg")
+        # Helpful hint for common cases
+        if [[ "$pkg" == "wezterm" ]]; then
+          warn "WezTerm may require COPR: sudo dnf copr enable wezfurlong/wezterm -y && sudo dnf install wezterm -y"
+        fi
       fi
+    done
+    if (( ${#failed[@]} > 0 )); then
+      warn "Some packages failed on Fedora: ${failed[*]}"
     fi
-  done
-  if (( ${#failed[@]} > 0 )); then
-    warn "Some packages failed on Fedora: ${failed[*]}"
   fi
 }
 
@@ -128,22 +140,28 @@ install_debian() {
     gnome-tweaks
     gnome-shell-extensions
   )
-  local failed=()
-  info "Installing packages with apt..."
-  for pkg in "${packages[@]}"; do
-    info "Installing $pkg..."
-    if sudo apt-get install -y "$pkg" | cat; then
-      ok "$pkg installed"
-    else
-      warn "Failed to install $pkg"
-      failed+=("$pkg")
-      if [[ "$pkg" == "wezterm" ]]; then
-        warn "WezTerm may not be in your Ubuntu/Debian repo. Install the .deb from the official releases."
+  
+  info "Installing packages with apt (batch install)..."
+  if sudo apt-get install -y "${packages[@]}" | cat; then
+    ok "All packages installed successfully"
+  else
+    warn "Batch install failed, trying individual packages..."
+    local failed=()
+    for pkg in "${packages[@]}"; do
+      info "Installing $pkg..."
+      if sudo apt-get install -y "$pkg" | cat; then
+        ok "$pkg installed"
+      else
+        warn "Failed to install $pkg"
+        failed+=("$pkg")
+        if [[ "$pkg" == "wezterm" ]]; then
+          warn "WezTerm may not be in your Ubuntu/Debian repo. Install the .deb from the official releases."
+        fi
       fi
+    done
+    if (( ${#failed[@]} > 0 )); then
+      warn "Some packages failed on Ubuntu/Debian: ${failed[*]}"
     fi
-  done
-  if (( ${#failed[@]} > 0 )); then
-    warn "Some packages failed on Ubuntu/Debian: ${failed[*]}"
   fi
 }
 
