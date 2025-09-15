@@ -257,6 +257,14 @@ You can follow my settings to get the same style in screenshot below, or you can
 ### Installation
 
 1. Install [BetterDiscord](https://docs.betterdiscord.app/users/getting-started/installation#manual-installation).
+1.5. (Optional) You can use [betterdiscordctl](https://github.com/bb010g/betterdiscordctl) for easier installation.
+```bash
+# Fedora
+sudo dnf install dnf-plugins-core
+sudo dnf copr enable observeroftime/betterdiscordctl
+sudo dnf install betterdiscordctl
+betterdiscordctl install #Adjust it into your discord flavor
+```
 2. Restart Discord.
 
 ### Configuration
@@ -292,6 +300,10 @@ Resource monitor that shows usage and stats for processor, memory, disks, networ
 ### Installation
 
 1. Install [btop](https://github.com/aristocratos/btop?tab=readme-ov-file#installation)
+```bash
+# Fedora
+sudo dnf install btop
+```
 
 ### Configuration
 
@@ -320,7 +332,13 @@ Cross-platform Audio Visualizer. Cava is a bar spectrum audio visualizer for ter
 ### Installation
 
 1. Install [cava](https://github.com/karlstav/cava?tab=readme-ov-file#installing)
-
+```bash
+# Fedora
+# Install the dependencies
+sudo dnf install alsa-lib-devel fftw3-devel pulseaudio-libs-devel libtool iniparser-devel pkgconf
+# Install cava
+sudo dnf install cava
+```
 ### Configuration
 
 1. Paste the `.config/cava` into `~/.config/cava`
@@ -350,7 +368,10 @@ Fastfetch is a neofetch-like tool for fetching system information and displaying
 ### Installation
 
 1. Install [fastfetch](https://github.com/fastfetch-cli/fastfetch?tab=readme-ov-file#installation)
-
+```bash
+# Fedora
+sudo dnf install fastfetch
+```
 ### Configuration
 
 1. Paste the `.config/fastfetch` into `~/.config/fastfetch`
@@ -370,6 +391,11 @@ Pywal is a tool that generates a color palette from the dominant colors in an im
 ### Installation
 
 1. Install [pywal](https://github.com/dylanaraps/pywal/wiki/Installation)
+```bash
+# Fedora
+sudo dnf install python3
+sudo pip3 install pywal
+```
 
 ### Configuration
 
@@ -390,6 +416,11 @@ WezTerm is a powerful cross-platform terminal emulator and multiplexer written b
 ### Installation
 
 1. Install [wezterm](https://wezterm.org/installation)
+```bash
+# Fedora
+sudo dnf copr enable wezfurlong/wezterm-nightly
+sudo dnf install wezterm
+```
 
 ### Configuration
 
@@ -418,6 +449,10 @@ A Wayland-based logout menu.
 ### Installation
 
 1. Install [wlogout](https://github.com/ArtsyMacaw/wlogout)
+```bash
+# Fedora
+sudo dnf install wlogout
+```
 
 ### Configuration
 
@@ -449,6 +484,10 @@ Wofi is a launcher/menu program for wlroots-based Wayland compositors such as sw
 ### Installation
 
 1. Install [wofi](https://github.com/SimplyCEO/wofi?tab=readme-ov-file#building)
+```bash
+# Fedora
+sudo dnf install wofi
+```
 
 ### Configuration
 
