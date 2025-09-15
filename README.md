@@ -677,10 +677,21 @@ Quick setup instructions:
    ```bash
    ./install.sh
    ```
+   Basic install (apps + configs/scripts linking):
    - Installs required applications for GNOME rice
    - Creates symbolic links for configs into `~/.config`
    - Links scripts from `.script/` into `~/.local/bin` and makes them executable
    - Backs up existing configs/scripts into a timestamped folder in your home
+
+   **Enhanced options:**
+   ```bash
+   ./install.sh --apply-gnome-settings --install-extensions
+   ```
+   - `--apply-gnome-settings`: Automatically configures GNOME settings (dark theme, keybinds, fonts)
+   - `--install-extensions`: Auto-downloads and installs GNOME extensions (Forge, Blur My Shell, etc.)
+   - `--skip-apps`: Only link configs/scripts, skip package installation
+   - `--skip-links`: Only install apps, skip linking configs/scripts
+   - `--help`: Show all options
 
 > Note: If you only want to install applications, run `./install-apps.sh`.
 
@@ -727,8 +738,16 @@ Quick setup instructions:
    chmod +x ~/.local/bin/*
    ```
 
-> Don’t forget to install GNOME extensions manually from https://extensions.gnome.org:
-> Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks.
+### GNOME Extensions & Settings
+
+**Automatic (recommended):**
+```bash
+./install.sh --apply-gnome-settings --install-extensions
+```
+
+**Manual:**
+- Install extensions from https://extensions.gnome.org: Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks
+- Configure keyboard shortcuts manually (see table below)
 
 ## 📝 Notes
 
