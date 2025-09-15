@@ -627,6 +627,26 @@ pip install haishoku
 
 Quick setup instructions:
 
+### Option A — Automated install (recommended)
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/SeraphimeZelel/rion-ricing.git ~/.rion-dotfiles
+   cd ~/.rion-dotfiles
+   ```
+2. Run the combined installer
+   ```bash
+   ./install.sh
+   ```
+   - Installs required applications for GNOME rice
+   - Creates symbolic links for configs into `~/.config`
+   - Links scripts from `.script/` into `~/.local/bin` and makes them executable
+   - Backs up existing configs/scripts into a timestamped folder in your home
+
+> Note: If you only want to install applications, run `./install-apps.sh`.
+
+### Option B — Manual steps
+
 1. **Clone the repo**
    ```bash
    git clone https://github.com/SeraphimeZelel/rion-ricing.git ~/.rion-dotfiles
@@ -667,6 +687,9 @@ Quick setup instructions:
    ```bash
    chmod +x ~/.local/bin/*
    ```
+
+> Don’t forget to install GNOME extensions manually from https://extensions.gnome.org:
+> Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks.
 
 ## 📝 Notes
 
