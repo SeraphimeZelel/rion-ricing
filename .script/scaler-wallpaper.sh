@@ -14,13 +14,15 @@ for img in *.{jpg,jpeg,png,webp,bmp}; do
 
     # Check resolution
     read width height <<< $(identify -format "%w %h" "$img")
-    if [[ "$width" -eq 1920 && "$height" -eq 1080 ]]; then
-        continue
-    fi
-
     base="${img%.*}"
     ext="png"                    # Converted wallpaper extension
     orig_ext="${img##*.}"        # Original extension for backup
+    orig_ext_lc="${orig_ext,,}"  # Lowercase extension
+
+    # --- Skip condition ---
+    if [[ "$width" -eq 1920 && "$height" -eq 1080 && "$orig_ext_lc" == "png" ]]; then
+        continue
+    fi
 
     # --- Determine next available name in wallpaper folder ---
     max=0
@@ -40,8 +42,14 @@ for img in *.{jpg,jpeg,png,webp,bmp}; do
         new_name="${base}_$((max + 1)).$ext"
     fi
 
-    # Convert image
-    if magick "$img" -resize 1920x1080^ -gravity center -extent 1920x1080 "$new_name"; then
+    # Convert (resize if needed)
+    if [[ "$width" -eq 1920 && "$height" -eq 1080 ]]; then
+        magick "$img" "$new_name"
+    else
+        magick "$img" -resize 1920x1080^ -gravity center -extent 1920x1080 "$new_name"
+    fi
+
+    if [[ $? -eq 0 ]]; then
         echo "Converted: $img -> $new_name"
 
         # --- Move original to backup with incremental name and original extension ---
@@ -70,4 +78,3 @@ for img in *.{jpg,jpeg,png,webp,bmp}; do
 done
 
 echo "✅ All Wallpapers has been processed $WALLPAPERS"
-
