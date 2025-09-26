@@ -677,10 +677,22 @@ Quick setup instructions:
    ```bash
    ./install.sh
    ```
+   Basic install (apps + configs/scripts linking):
    - Installs required applications for GNOME rice
    - Creates symbolic links for configs into `~/.config`
    - Links scripts from `.script/` into `~/.local/bin` and makes them executable
    - Backs up existing configs/scripts into a timestamped folder in your home
+
+   **Enhanced options:**
+   ```bash
+   ./install.sh --apply-gnome-settings --install-extensions --health-check
+   ```
+   - `--apply-gnome-settings`: Automatically configures GNOME settings (dark theme, keybinds, fonts)
+   - `--install-extensions`: Auto-downloads and installs GNOME extensions (Forge, Blur My Shell, etc.)
+   - `--health-check`: Run verification after installation to check everything works
+   - `--skip-apps`: Only link configs/scripts, skip package installation
+   - `--skip-links`: Only install apps, skip linking configs/scripts
+   - `--help`: Show all options
 
 > Note: If you only want to install applications, run `./install-apps.sh`.
 
@@ -727,8 +739,39 @@ Quick setup instructions:
    chmod +x ~/.local/bin/*
    ```
 
-> Don’t forget to install GNOME extensions manually from https://extensions.gnome.org:
-> Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks.
+### GNOME Extensions & Settings
+
+**Automatic (recommended):**
+```bash
+./install.sh --apply-gnome-settings --install-extensions
+```
+
+**Manual:**
+- Install extensions from https://extensions.gnome.org: Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks
+- Configure keyboard shortcuts manually (see table below)
+
+## 🛠 Additional Tools
+
+### Health Check
+Verify your installation is working correctly:
+```bash
+./verify.sh
+```
+Checks: packages installed, symlinks correct, extensions enabled, pywal cache, WezTerm config
+
+### Backup & Restore
+Restore from backup or uninstall dotfiles:
+```bash
+./restore.sh                           # Restore from latest backup
+./restore.sh --list-backups            # Show available backups  
+./restore.sh --uninstall               # Remove all symlinks
+./restore.sh --dry-run                 # Preview changes
+```
+
+### Performance Improvements
+- **Faster installs**: Packages now install in batches instead of one-by-one
+- **Smart fallback**: If batch install fails, tries individual packages
+- **Idempotent**: Safe to run multiple times
 
 ## 📝 Notes
 
