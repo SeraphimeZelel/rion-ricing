@@ -720,6 +720,7 @@ Quick setup instructions:
 
 3. **Symlink the scripts**
    ```bash
+   mkdir -p ~/.local/bin
    ln -s ~/.rion-dotfiles/.script/* ~/.local/bin
    ```
 4. **Make scripts executable**
