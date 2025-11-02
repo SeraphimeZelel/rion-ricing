@@ -1,4 +1,5 @@
 #!/bin/bash
-~/.dotfiles/.script/discord-pywalsync.sh
-~/.dotfiles/.script/cava-pywalsync.sh
-~/.dotfiles/.script/wlogout-pywalsync.sh
+~/.local/bin/discord-pywalsync.sh
+~/.local/bin/cava-pywalsync.sh
+~/.local/bin/wlogout-pywalsync.sh
+~/.local/bin/pywalfox update

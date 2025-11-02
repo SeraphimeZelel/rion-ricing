@@ -6,7 +6,7 @@
 :root {
     /* -- Theme Accent Colors (Mapped to Pywal) -- */
     --main-color: var(--color1); /* Main accent color */
-    --hover-color: var(--color3); /* Hover accent color */
+    --hover-color: var(--color5); /* Hover accent color */
     --success-color: #43b581; /* Keeping static for clarity */
     --danger-color: #982929; /* Keeping static for clarity */
     --warning-color: #fff;
@@ -67,7 +67,7 @@
     --text-muted: var(--color7) !important;
     --interactive-normal: var(--color7) !important;
     --interactive-hover: var(--color15) !important;
-    --interactive-active: var(--color1) !important; /* Black text for active elements */
+    --interactive-active: var(--color1) !important;
     --background-modifier-accent: rgba(255, 255, 255, 0.06) !important;
     --scrollbar-auto-thumb: var(--main-color) !important;
     --scrollbar-auto-track: transparent !important;
@@ -161,7 +161,7 @@
    5. Component Styles
    ========================================================================== */
 .info__2debe::after {
-  content: "Rion Zaphkiel" " " "1.2.1";
+  content: "Rion Zaphkiel" " " "1.3.2";
   color: var(--text-muted);
   font-size: 12px;
   line-height: 1.3333333333;
@@ -179,7 +179,7 @@
   filter: drop-shadow(0 0 5px var(--hsl-main-color));
 }
 .visual-refresh:not(.platform-osx) .leading_c38106::after {
-  content: "1.2.1";
+  content: "1.3.2";
   position: static;
   margin-top: -5px;
   margin-left: 5px;

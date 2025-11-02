@@ -1,11 +1,46 @@
 /**
  * @name ViewProfilePicture
  * @description Adds a button to the user popout and profile that allows you to view the Avatar and banner.
- * @version 1.3.0
+ * @version 1.3.1
  * @author Skamt
  * @website https://github.com/Skamt/BDAddons/tree/main/ViewProfilePicture
  * @source https://raw.githubusercontent.com/Skamt/BDAddons/main/ViewProfilePicture/ViewProfilePicture.plugin.js
  */
+
+// config:@Config
+var Config_default = {
+	"info": {
+		"name": "ViewProfilePicture",
+		"version": "1.3.1",
+		"description": "Adds a button to the user popout and profile that allows you to view the Avatar and banner.",
+		"source": "https://raw.githubusercontent.com/Skamt/BDAddons/main/ViewProfilePicture/ViewProfilePicture.plugin.js",
+		"github": "https://github.com/Skamt/BDAddons/tree/main/ViewProfilePicture",
+		"authors": [{
+			"name": "Skamt"
+		}]
+	},
+	"settings": {
+		"showOnHover": false,
+		"bannerColor": false
+	}
+};
+
+// common/Api.js
+var Api = new BdApi(Config_default.info.name);
+var UI = /* @__PURE__ */ (() => Api.UI)();
+var DOM = /* @__PURE__ */ (() => Api.DOM)();
+var Data = /* @__PURE__ */ (() => Api.Data)();
+var React = /* @__PURE__ */ (() => Api.React)();
+var Patcher = /* @__PURE__ */ (() => Api.Patcher)();
+var Logger = /* @__PURE__ */ (() => Api.Logger)();
+var Webpack = /* @__PURE__ */ (() => Api.Webpack)();
+var findInTree = /* @__PURE__ */ (() => Api.Utils.findInTree)();
+
+// common/Utils/Logger.js
+Logger.patchError = (patchId) => {
+	console.error(`%c[${Config_default.info.name}] %cCould not find module for %c[${patchId}]`, "color: #3a71c1;font-weight: bold;", "", "color: red;font-weight: bold;");
+};
+var Logger_default = Logger;
 
 // common/Utils/EventEmitter.js
 var EventEmitter_default = class {
@@ -43,7 +78,7 @@ var EventEmitter_default = class {
 			try {
 				listener.apply(null, payload);
 			} catch (err) {
-				console.error(`Could not run listener for ${event}`, err);
+				Logger_default.error(`Could not run listener for ${event}`, err);
 			}
 		}
 	}
@@ -63,35 +98,6 @@ var Plugin_default = new class extends EventEmitter_default {
 	}
 }();
 
-// config:@Config
-var Config_default = {
-	"info": {
-		"name": "ViewProfilePicture",
-		"version": "1.3.0",
-		"description": "Adds a button to the user popout and profile that allows you to view the Avatar and banner.",
-		"source": "https://raw.githubusercontent.com/Skamt/BDAddons/main/ViewProfilePicture/ViewProfilePicture.plugin.js",
-		"github": "https://github.com/Skamt/BDAddons/tree/main/ViewProfilePicture",
-		"authors": [{
-			"name": "Skamt"
-		}]
-	},
-	"settings": {
-		"showOnHover": false,
-		"bannerColor": false
-	}
-};
-
-// common/Api.js
-var Api = new BdApi(Config_default.info.name);
-var UI = /* @__PURE__ */ (() => Api.UI)();
-var DOM = /* @__PURE__ */ (() => Api.DOM)();
-var Data = /* @__PURE__ */ (() => Api.Data)();
-var React = /* @__PURE__ */ (() => Api.React)();
-var Patcher = /* @__PURE__ */ (() => Api.Patcher)();
-var Logger = /* @__PURE__ */ (() => Api.Logger)();
-var Webpack = /* @__PURE__ */ (() => Api.Webpack)();
-var findInTree = /* @__PURE__ */ (() => Api.Utils.findInTree)();
-
 // common/Utils/StylesLoader.js
 var styleLoader = {
 	_styles: [],
@@ -110,7 +116,7 @@ var StylesLoader_default = styleLoader;
 // src/ViewProfilePicture/styles.css
 StylesLoader_default.push(`/* View Profile Button */
 .VPP-Button {
-	background: hsl(var(--black-500-hsl) / 0.7);
+	background: rgb(1 0 1 / 54%);
 	cursor: pointer;
 	display: flex;
 	border-radius: 50%;
@@ -141,7 +147,7 @@ StylesLoader_default.push(`/* View Profile Button */
 }
 
 .VPP-Button:hover {
-	background: hsl(var(--black-500-hsl) / 0.85);
+	background: rgb(1 0 1 / 64%);
 }
 
 /* div replacement if No banner */
@@ -258,8 +264,13 @@ function getImageDimensions(url) {
 	});
 }
 
+// common/React.jsx
+var useState = /* @__PURE__ */ (() => React.useState)();
+var useMemo = /* @__PURE__ */ (() => React.useMemo)();
+var React_default = /* @__PURE__ */ (() => React)();
+
 // common/Components/ErrorBoundary/index.jsx
-var ErrorBoundary = class extends React.Component {
+var ErrorBoundary = class extends React_default.Component {
 	state = { hasError: false, error: null, info: null };
 	componentDidCatch(error, info) {
 		this.setState({ error, info, hasError: true });
@@ -269,10 +280,10 @@ var ErrorBoundary = class extends React.Component {
 `, "color: #3a71c1;font-weight: bold;", "", "color: red;font-weight: bold;", errorMessage);
 	}
 	renderErrorBoundary() {
-		return /* @__PURE__ */ React.createElement("div", { style: { background: "#292c2c", padding: "20px", borderRadius: "10px" } }, /* @__PURE__ */ React.createElement("b", { style: { color: "#e0e1e5" } }, "An error has occured while rendering ", /* @__PURE__ */ React.createElement("span", { style: { color: "orange" } }, this.props.id)));
+		return /* @__PURE__ */ React_default.createElement("div", { style: { background: "#292c2c", padding: "20px", borderRadius: "10px" } }, /* @__PURE__ */ React_default.createElement("b", { style: { color: "#e0e1e5" } }, "An error has occured while rendering ", /* @__PURE__ */ React_default.createElement("span", { style: { color: "orange" } }, this.props.id)));
 	}
 	renderFallback() {
-		if (React.isValidElement(this.props.fallback)) {
+		if (React_default.isValidElement(this.props.fallback)) {
 			if (this.props.passMetaProps)
 				this.props.fallback.props = {
 					id: this.props.id,
@@ -281,7 +292,7 @@ var ErrorBoundary = class extends React.Component {
 				};
 			return this.props.fallback;
 		}
-		return /* @__PURE__ */ React.createElement(
+		return /* @__PURE__ */ React_default.createElement(
 			this.props.fallback, {
 				id: this.props.id,
 				plugin: Config_default?.info?.name || "Unknown Plugin"
@@ -314,12 +325,6 @@ var ErrorIcon_default = (props) => /* @__PURE__ */ React.createElement("div", { 
 	React.createElement("path", { d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" })
 ));
 
-// common/Utils/Logger.js
-Logger.patchError = (patchId) => {
-	console.error(`%c[${Config_default.info.name}] %cCould not find module for %c[${patchId}]`, "color: #3a71c1;font-weight: bold;", "", "color: red;font-weight: bold;");
-};
-var Logger_default = Logger;
-
 // common/Webpack.js
 var getModule = /* @__PURE__ */ (() => Webpack.getModule)();
 var Filters = /* @__PURE__ */ (() => Webpack.Filters)();
@@ -340,11 +345,6 @@ function getModuleAndKey(filter, options) {
 	if (!key) return;
 	return { module: module2, key };
 }
-
-// common/React.js
-var useState = /* @__PURE__ */ (() => React.useState)();
-var useMemo = /* @__PURE__ */ (() => React.useMemo)();
-var React_default = /* @__PURE__ */ (() => React)();
 
 // common/DiscordModules/zustand.js
 var { zustand } = getMangled(Filters.bySource("useSyncExternalStoreWithSelector", "useDebugValue", "subscribe"), {
@@ -401,16 +401,19 @@ StylesLoader_default.push(`.transparent-background.transparent-background{
 	border:unset;
 }`);
 
-// MODULES-AUTO-LOADER:@Modules/ModalRoot
-var ModalRoot_default = getModule(Filters.byStrings("rootWithShadow", "MODAL"), { searchExports: true });
-
-// MODULES-AUTO-LOADER:@Modules/ModalSize
-var ModalSize_default = getModule(Filters.byKeys("DYNAMIC", "SMALL", "LARGE"), { searchExports: true });
-
 // common/Utils/Modals/index.jsx
 var ModalActions = /* @__PURE__ */ getMangled("onCloseRequest:null!=", {
 	openModal: /* @__PURE__ */ Filters.byStrings("onCloseRequest:null!="),
 	closeModal: /* @__PURE__ */ Filters.byStrings(".setState", ".getState()[")
+});
+var Modals = /* @__PURE__ */ getMangled( /* @__PURE__ */ Filters.bySource("root", "headerIdIsManaged"), {
+	ModalRoot: /* @__PURE__ */ Filters.byStrings("rootWithShadow"),
+	ModalFooter: /* @__PURE__ */ Filters.byStrings(".footer"),
+	ModalContent: /* @__PURE__ */ Filters.byStrings(".content"),
+	ModalHeader: /* @__PURE__ */ Filters.byStrings(".header", "separator"),
+	Animations: (a) => a.SUBTLE,
+	Sizes: (a) => a.DYNAMIC,
+	ModalCloseButton: Filters.byStrings(".close]:")
 });
 var openModal = (children, tag, { className, ...modalRootProps } = {}) => {
 	const id = `${tag ? `${tag}-` : ""}modal`;
@@ -422,11 +425,11 @@ var openModal = (children, tag, { className, ...modalRootProps } = {}) => {
 			},
 			/* @__PURE__ */
 			React.createElement(
-				ModalRoot_default, {
+				Modals.ModalRoot, {
 					onClick: props.onClose,
 					transitionState: props.transitionState,
 					className: concateClassNames("transparent-background", className),
-					size: ModalSize_default.DYNAMIC,
+					size: Modals.Sizes.DYNAMIC,
 					...modalRootProps
 				},
 				React.cloneElement(children, { ...props })
@@ -592,22 +595,22 @@ function resolveColor() {
 }
 
 function copyColor(type, color) {
-	let c = color;
+	let c2 = color;
 	try {
 		switch (type) {
 			case "hex":
-				c = Color_default(color).hex();
+				c2 = Color_default(color).hex();
 				break;
 			case "rgba":
-				c = Color_default(color).css("rgba");
+				c2 = Color_default(color).css("rgba");
 				break;
 			case "hsla":
-				c = Color_default(color).css("hsla");
+				c2 = Color_default(color).css("hsla");
 				break;
 		}
 	} finally {
-		copy(c);
-		Toast_default.success(`${c} Copied!`);
+		copy(c2);
+		Toast_default.success(`${c2} Copied!`);
 	}
 }
 
@@ -760,7 +763,7 @@ Plugin_default.on(Events.START, () => {
 var FormSwitch_default = getModule(Filters.byStrings("note", "tooltipNote"), { searchExports: true });
 
 // common/Components/Switch/index.jsx
-var Switch_default = FormSwitch_default || function SwitchComponentFallback(props) {
+var Switch_default = getModule(Filters.byStrings('"data-toggleable-component":"switch"', 'layout:"horizontal"'), { searchExports: true }) || function SwitchComponentFallback(props) {
 	return /* @__PURE__ */ React.createElement("div", { style: { color: "#fff" } }, props.children, /* @__PURE__ */ React.createElement(
 		"input", {
 			type: "checkbox",
@@ -771,26 +774,88 @@ var Switch_default = FormSwitch_default || function SwitchComponentFallback(prop
 };
 
 // common/Components/SettingSwtich/index.jsx
-function SettingSwtich({ settingKey, note, onChange = nop, hideBorder = false, description, ...rest }) {
+function SettingSwtich({ settingKey, note, onChange = nop, description, ...rest }) {
 	const [val, set] = Settings_default.useSetting(settingKey);
 	return /* @__PURE__ */ React.createElement(
 		Switch_default, {
 			...rest,
-			value: val,
-			note,
-			hideBorder,
+			checked: val,
+			label: description || settingKey,
+			description: note,
 			onChange: (e) => {
 				set(e);
 				onChange(e);
 			}
-		},
-		description || settingKey
+		}
 	);
+}
+
+// common/Components/FieldSet/styles.css
+StylesLoader_default.push(`.fieldset-container {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.fieldset-label {
+	margin-bottom: 12px;
+}
+
+.fieldset-description {
+	margin-bottom: 12px;
+}
+
+.fieldset-label + .fieldset-description{
+	margin-top:-8px;
+	margin-bottom: 0;
+}
+
+.fieldset-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: flex-start;
+}
+`);
+
+// MODULES-AUTO-LOADER:@Modules/Heading
+var Heading_default = getModule((a) => a?.render?.toString().includes("data-excessive-heading-level"), { searchExports: true });
+
+// common/Utils/css.js
+var classNameFactory = (prefix = "", connector = "-") => (...args) => {
+	const classNames = /* @__PURE__ */ new Set();
+	for (const arg of args) {
+		if (arg && typeof arg === "string") classNames.add(arg);
+		else if (Array.isArray(arg)) arg.forEach((name) => classNames.add(name));
+		else if (arg && typeof arg === "object") Object.entries(arg).forEach(([name, value]) => value && classNames.add(name));
+	}
+	return Array.from(classNames, (name) => `${prefix}${connector}${name}`).join(" ");
+};
+
+// common/Components/FieldSet/index.jsx
+var c = classNameFactory("fieldset");
+
+function FieldSet({ label, description, children, contentGap = 16 }) {
+	return /* @__PURE__ */ React_default.createElement("fieldset", { className: c("container") }, label && /* @__PURE__ */ React_default.createElement(
+		Heading_default, {
+			className: c("label"),
+			tag: "legend",
+			variant: "text-lg/medium"
+		},
+		label
+	), description && /* @__PURE__ */ React_default.createElement(
+		Heading_default, {
+			className: c("description"),
+			variant: "text-sm/normal",
+			color: "text-secondary"
+		},
+		description
+	), /* @__PURE__ */ React_default.createElement("div", { className: c("content"), style: { gap: contentGap } }, children));
 }
 
 // src/ViewProfilePicture/components/SettingComponent.jsx
 function SettingComponent() {
-	return [{
+	return /* @__PURE__ */ React_default.createElement(FieldSet, { contentGap: 8 }, [{
 			settingKey: "showOnHover",
 			note: "By default hide ViewProfilePicture button and show on hover.",
 			description: "Show on hover"
@@ -800,7 +865,7 @@ function SettingComponent() {
 			note: "Always include banner color in carousel, even if a banner is present.",
 			description: "Include banner color."
 		}
-	].map(SettingSwtich);
+	].map(SettingSwtich));
 }
 
 // src/ViewProfilePicture/index.jsx

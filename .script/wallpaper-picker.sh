@@ -6,7 +6,7 @@ CACHE_DIR="$HOME/.cache/wallpaper-picker"
 THUMB_WIDTH="250"
 THUMB_HEIGHT="141"
 THEMES="$HOME/.config/wal/themes"
-WAL_BIN="$HOME/.local/bin/wal"
+WAL_BIN="/usr/local/bin/wal"
 HOOKS="$HOME/.config/wal/hooks/hooks.sh"
 FASTFETCH_CFG="$HOME/.config/fastfetch/config.jsonc"
 
@@ -105,4 +105,3 @@ touch "$HOME/.config/fastfetch/.reload_flag"
 
 # Run pywal hooks
 $HOOKS
-$HOME/.local/bin/pywalfox update

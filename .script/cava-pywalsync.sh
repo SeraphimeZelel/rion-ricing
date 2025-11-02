@@ -5,8 +5,8 @@ CAVA_CONFIG="$HOME/.config/cava/config"
 WAL_COLORS="$HOME/.cache/wal/colors.json"
 
 # Take colors from pywal
-COLOR1=$(jq -r '.colors.color8' "$WAL_COLORS")
-COLOR2=$(jq -r '.colors.color1' "$WAL_COLORS")
+COLOR1=$(jq -r '.colors.color1' "$WAL_COLORS")
+COLOR2=$(jq -r '.colors.color5' "$WAL_COLORS")
 
 # Update colors in CAVA
 sed -i "s|^gradient_color_1 = '.*'|gradient_color_1 = '$COLOR1'|" "$CAVA_CONFIG"

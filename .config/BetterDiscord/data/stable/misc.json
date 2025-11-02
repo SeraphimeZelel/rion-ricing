@@ -1,5 +1,5 @@
 {
-    "version": "1.12.7",
+    "version": "1.12.8",
     "addonlistControls": {
         "plugin": {
             "view": "grid"
@@ -14,7 +14,8 @@
             "window": true,
             "addons": true,
             "store": true,
-            "editor": false
+            "editor": false,
+            "developer": true
         }
     }
 }

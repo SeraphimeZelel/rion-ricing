@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.2.8
+ * @version 4.3.6
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -768,7 +768,7 @@ module.exports = (_ => {
 						customIcon: `<svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M 15.46875 0.859375 C 15.772992 1.030675 16.059675 1.2229406 16.326172 1.4316406 C 17.134815 2.0640406 17.768634 2.8677594 18.208984 3.8183594 C 18.665347 4.8050594 18.913286 5.9512625 18.945312 7.2265625 L 18.945312 7.2421875 L 18.945312 7.2597656 L 18.945312 16.753906 L 18.945312 16.769531 L 18.945312 16.785156 C 18.914433 18.060356 18.666491 19.206759 18.208984 20.193359 C 17.768634 21.144059 17.135961 21.947578 16.326172 22.580078 C 16.06768 22.782278 15.790044 22.967366 15.496094 23.134766 L 16.326172 23.134766 C 20.285895 23.158766 24 20.930212 24 15.820312 L 24 8.3535156 C 24.021728 3.1431156 20.305428 0.86132812 16.345703 0.86132812 L 15.46875 0.859375 z M 0 0.8671875 L 0 10.064453 L 4.4492188 15.191406 L 4.4492188 5.4394531 L 8.4394531 5.4394531 C 11.753741 5.4394531 11.753741 9.8828125 8.4394531 9.8828125 L 7.0234375 9.8828125 L 7.0234375 14.126953 L 8.4394531 14.126953 C 11.753741 14.126953 11.753741 18.568359 8.4394531 18.568359 L 0 18.568359 L 0 23.138672 L 8.3457031 23.138672 C 12.647637 23.138672 15.987145 21.3021 16.105469 16.75 C 16.105469 14.6555 15.567688 13.090453 14.621094 12.001953 C 15.567688 10.914853 16.105469 9.3502594 16.105469 7.2558594 C 15.988351 2.7036594 12.648845 0.8671875 8.3457031 0.8671875 L 0 0.8671875 z"/></svg>`,
 						buttons: [{
 							className: BDFDB.disCN.noticeupdatebuttonall,
-							contents: BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_ALL,
+							contents: BDFDB.LanguageUtils.LanguageStrings.ALL,
 							onClick: _ => {for (let notice of updateNotice.querySelectorAll(BDFDB.dotCN.noticeupdateentry)) notice.click();}
 						}],
 						onClose: _ => vanishObserver.disconnect()
@@ -1907,7 +1907,7 @@ module.exports = (_ => {
 						}
 					};
 					
-					if (!("Notification" in window)) {}
+					if (!("Notification" in window)) {BDFDB.NotificationUtils.toast(content, config);}
 					else if (Notification.permission === "granted") queue();
 					else if (Notification.permission !== "denied") Notification.requestPermission(function (response) {if (response === "granted") queue();});
 				};
@@ -2108,7 +2108,7 @@ module.exports = (_ => {
 										className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.tooltipmutetext),
 										size: Internal.LibraryComponents.TextElement.Sizes.SIZE_12,
 										color: Internal.LibraryComponents.TextElement.Colors.MUTED,
-										children: BDFDB.LanguageUtils.LanguageStrings.VOICE_CHANNEL_MUTED
+										children: BDFDB.LanguageUtils.LanguageStrings.MUTED
 									}) : BDFDB.ReactUtils.createElement(Internal.LibraryComponents.GuildTooltipMutedText, {
 										className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.tooltipmutetext),
 										muteConfig: muteConfig
@@ -2551,12 +2551,21 @@ module.exports = (_ => {
 						});
 					}
 				};
-				const LanguageStores = BDFDB.ModuleUtils.find(m => m[InternalData.LanguageStringHashes.DISCORD] && m, {all: true, defaultExport: false});
-				LibraryModules.LanguageStore = (LanguageStores.find(n => n && n.exports && n.exports[InternalData.LanguageStringHashes.DISCORD]) || LanguageStores.find(n => n && n.exports && n.exports.default && n.exports.default[InternalData.LanguageStringHashes.DISCORD]) || {}).exports || {};
+				const hasDiscordStringHash = m => {
+					return m && [InternalData.LanguageStringHashes.DISCORD].flat(10).some(hash => m[hash] && typeof m[hash] != "function");
+				};
+				const LanguageStores = BDFDB.ModuleUtils.find(m => (hasDiscordStringHash(m) || hasDiscordStringHash(m.default)) && m, {all: true, defaultExport: false});
+				
+				LibraryModules.EngLanguageStore = (LanguageStores.find(n => n && n.exports && hasDiscordStringHash(n.exports.default)) || {}).exports || {};
+				LibraryModules.EngLanguageStore = LibraryModules.EngLanguageStore.default || LibraryModules.EngLanguageStore;
+				
+				LibraryModules.LanguageStore = (LanguageStores.find(n => n && hasDiscordStringHash(n.exports)) || LanguageStores.find(n => n && n.exports && hasDiscordStringHash(n.exports.default)) || {}).exports || {};
 				LibraryModules.LanguageStore = LibraryModules.LanguageStore.default || LibraryModules.LanguageStore;
+				
 				LibraryModules.React = BDFDB.ModuleUtils.findByProperties("createElement", "cloneElement");
 				LibraryModules.ReactDOM = BDFDB.ModuleUtils.findByProperties("render", "findDOMNode", {noWarnings: true}) || BDFDB.ModuleUtils.findByProperties("createRoot");
 				LibraryModules.ReactPortal = BDFDB.ModuleUtils.findByProperties("flushSync", "createPortal");
+				
 				Internal.LibraryModules = new Proxy(LibraryModules, {
 					get: function (_, item) {
 						if (LibraryModules[item]) return LibraryModules[item];
@@ -4593,8 +4602,12 @@ module.exports = (_ => {
 				});
 				
 				const LanguageStringsObj = Internal.LibraryModules.LanguageStore && Internal.LibraryModules.LanguageStore.Messages || Internal.LibraryModules.LanguageStore || {};
+				const EngLanguageStringsObj = Internal.LibraryModules.EngLanguageStore && Internal.LibraryModules.EngLanguageStore.Messages || Internal.LibraryModules.EngLanguageStore || {};
 				const LanguageStringFormatter = Internal.LibraryModules.LanguageIntlUtils && Internal.LibraryModules.LanguageIntlUtils.formatToPlainString;
-				const LanguageStringFormattersObj = BDFDB.ModuleUtils.findByString("use strict", "createLoader:", "de:", {exportsFilter: m => !m.messagesLoader, all: true}).find(n => n && n.Z && LanguageStringFormatter(n.Z[InternalData.LanguageStringHashes.FRIENDS_ONLINE_HEADER], {online: 0})).Z;
+				const LanguageStringFormattersObj = (BDFDB.ModuleUtils.findByString("use strict", "createLoader:", {exportsFilter: m => !m.messagesLoader, all: true}).find(n => n && n.Z && [InternalData.LanguageStringHashes.DISCORD].flat(10).some(hash => LanguageStringFormatter(n.Z[hash]))) || {}).Z || {};
+				
+				const LanguageHashes = {};
+				for (let hash of Object.keys(EngLanguageStringsObj)) LanguageHashes[(typeof EngLanguageStringsObj[hash] == "string" ? [EngLanguageStringsObj[hash]] : EngLanguageStringsObj[hash]).map(n => typeof n == "string" ? n : "PLACEHOLDER").join(" ").toUpperCase().replace(/[^a-zA-Z0-9 ]/g, "").split(" ").filter(n => n).join(" ").trim().replace(/ /g, "_")] = hash;
 				
 				const LibraryStrings = Object.assign({}, InternalData.LibraryStrings);
 				BDFDB.LanguageUtils = {};
@@ -4613,20 +4626,20 @@ module.exports = (_ => {
 					if (language.name.startsWith("Discord")) return language.name.slice(0, -1) + (language.ownlang && (BDFDB.LanguageUtils.languages[language.id] || {}).name != language.ownlang ? ` / ${language.ownlang}` : "") + ")";
 					else return language.name + (language.ownlang && language.name != language.ownlang ? ` / ${language.ownlang}` : "");
 				};
-				BDFDB.LanguageUtils.LanguageStrings = new Proxy(InternalData.LanguageStringHashes, {
+				BDFDB.LanguageUtils.LanguageStrings = new Proxy(LanguageHashes, {
 					get: function (list, item) {
-						let stringObj = LanguageStringsObj[item] || LanguageStringsObj[InternalData.LanguageStringHashes[item]];
+						let stringObj = LanguageStringsObj[item] || LanguageStringsObj[LanguageHashes[item]];
 						if (!stringObj) BDFDB.LogUtils.warn([item, "not found in BDFDB.LanguageUtils.LanguageStrings"]);
 						else {
 							if (stringObj && typeof stringObj == "object" && typeof stringObj.format == "function" || BDFDB.ArrayUtils.is(stringObj)) return BDFDB.LanguageUtils.LanguageStringsFormat(item);
-							else return stringObj;
+							else return (stringObj || "").replace(/[?!:\.]$/, "");
 						}
 						return "";
 					}
 				});
-				BDFDB.LanguageUtils.LanguageStringsCheck = new Proxy(InternalData.LanguageStringHashes, {
+				BDFDB.LanguageUtils.LanguageStringsCheck = new Proxy(LanguageHashes, {
 					get: function (list, item) {
-						return !!(LanguageStringsObj[item] || LanguageStringsObj[InternalData.LanguageStringHashes[item]]);
+						return !!(LanguageStringsObj[item] || LanguageStringsObj[LanguageHashes[item]]);
 					}
 				});
 				let parseLanguageStringObj = obj => {
@@ -4638,17 +4651,17 @@ module.exports = (_ => {
 						else if (obj.props) string += parseLanguageStringObj(obj.props);
 					}
 					else if (BDFDB.ArrayUtils.is(obj)) for (let ele of obj) string += parseLanguageStringObj(ele);
-					return string;
+					return (string || "").replace(/[?!:\.]$/, "");
 				};
 				BDFDB.LanguageUtils.LanguageStringsFormat = function (item, ...values) {
 					if (item) {
-						let stringObj = LanguageStringsObj[item] || LanguageStringsObj[InternalData.LanguageStringHashes[item]];
+						let stringObj = LanguageStringsObj[item] || LanguageStringsObj[LanguageHashes[item]];
 						if (stringObj && typeof stringObj == "object" && typeof stringObj.format == "function" || BDFDB.ArrayUtils.is(stringObj)) {
 							let i = 0, returnvalue, formatVars = {};
 							let error = "\n";
 							while (!returnvalue && i < 10) {
 								i++;
-								try {returnvalue = BDFDB.ArrayUtils.is(stringObj) ? LanguageStringFormatter(LanguageStringFormattersObj[InternalData.LanguageStringHashes[item]], formatVars) : stringObj.format(formatVars, false);}
+								try {returnvalue = BDFDB.ArrayUtils.is(stringObj) ? LanguageStringFormatter(LanguageStringFormattersObj[LanguageHashes[item]], formatVars) : stringObj.format(formatVars, false);}
 								catch (err) {
 									error += "Error 1 " + err + "\n";
 									returnvalue = null;
@@ -4968,7 +4981,7 @@ module.exports = (_ => {
 							onMouseLeave: this.handleMouseLeave.bind(this),
 							children: BDFDB.ReactUtils.createElement("span", {
 								className: BDFDB.disCN.bottagtext,
-								children: this.props.tag || BDFDB.LanguageUtils.LanguageStrings.BOT_TAG_BOT
+								children: this.props.tag || BDFDB.LanguageUtils.LanguageStrings.BOT
 							})
 						});
 					}
@@ -4982,22 +4995,23 @@ module.exports = (_ => {
 					handleMouseEnter(e) {if (typeof this.props.onMouseEnter == "function") this.props.onMouseEnter(e, this);}
 					handleMouseLeave(e) {if (typeof this.props.onMouseLeave == "function") this.props.onMouseLeave(e, this);}
 					render() {
-						let processingAndListening = (this.props.disabled || this.props.submitting) && (null != this.props.onMouseEnter || null != this.props.onMouseLeave);
+						if (!this.state) this.state = {disabled: this.props.disabled};
+						let processingAndListening = (this.state.disabled || this.props.submitting) && (null != this.props.onMouseEnter || null != this.props.onMouseLeave);
 						let props = BDFDB.ObjectUtils.exclude(this.props, "look", "color", "hover", "size", "fullWidth", "grow", "disabled", "submitting", "type", "style", "wrapperClassName", "className", "innerClassName", "onClick", "onContextMenu", "onMouseDown", "onMouseUp", "onMouseEnter", "onMouseLeave", "children", "rel");
-						let button = BDFDB.ReactUtils.createElement("button", Object.assign({}, !this.props.disabled && !this.props.submitting && props, {
+						let button = BDFDB.ReactUtils.createElement("button", Object.assign({}, !this.state.disabled && !this.props.submitting && props, {
 							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.button, this.props.look != null ? this.props.look : Internal.LibraryComponents.Button.Looks.FILLED, this.props.color != null ? this.props.color : Internal.LibraryComponents.Button.Colors.BRAND, this.props.hover, this.props.size != null ? this.props.size : Internal.LibraryComponents.Button.Sizes.MEDIUM, processingAndListening && this.props.wrapperClassName, this.props.fullWidth && BDFDB.disCN.buttonfullwidth, (this.props.grow === undefined || this.props.grow) && BDFDB.disCN.buttongrow, this.props.submitting && BDFDB.disCN.buttonsubmitting),
-							onClick: (this.props.disabled || this.props.submitting) ? e => {return e.preventDefault();} : this.handleClick.bind(this),
-							onContextMenu: (this.props.disabled || this.props.submitting) ? e => {return e.preventDefault();} : this.handleContextMenu.bind(this),
-							onMouseUp: !this.props.disabled && this.handleMouseDown.bind(this),
-							onMouseDown: !this.props.disabled && this.handleMouseUp.bind(this),
+							onClick: (this.state.disabled || this.props.submitting) ? e => {return e.preventDefault();} : this.handleClick.bind(this),
+							onContextMenu: (this.state.disabled || this.props.submitting) ? e => {return e.preventDefault();} : this.handleContextMenu.bind(this),
+							onMouseUp: !this.state.disabled && this.handleMouseDown.bind(this),
+							onMouseDown: !this.state.disabled && this.handleMouseUp.bind(this),
 							onMouseEnter: this.handleMouseEnter.bind(this),
 							onMouseLeave: this.handleMouseLeave.bind(this),
 							type: !this.props.type ? "button" : this.props.type,
-							disabled: this.props.disabled,
+							disabled: this.state.disabled,
 							style: this.props.style,
 							rel: this.props.rel,
 							children: [
-								this.props.submitting && !this.props.disabled ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.SpinnerComponents.Spinner, {
+								this.props.submitting && !this.state.disabled ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.SpinnerComponents.Spinner, {
 									type: Internal.LibraryComponents.SpinnerComponents.Types.PULSING_ELLIPSIS,
 									className: BDFDB.disCN.buttonspinner,
 									itemClassName: BDFDB.disCN.buttonspinneritem
@@ -5034,6 +5048,10 @@ module.exports = (_ => {
 								!this.props.noRemove ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Clickable, {
 									"aria-label": BDFDB.LanguageUtils.LanguageStrings.REMOVE,
 									className: BDFDB.disCNS.hovercardbutton + BDFDB.disCNS.hovercardremovebutton + BDFDB.disCN.hovercardremovebuttondefault,
+									children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.SvgIcon, {
+										nativeClass: true,
+										name: Internal.LibraryComponents.SvgIcon.Names.REMOVE
+									}),
 									onClick: e => {
 										if (typeof this.props.onRemove == "function") this.props.onRemove(e, this);
 										BDFDB.ListenerUtils.stopEvent(e);
@@ -5277,9 +5295,9 @@ module.exports = (_ => {
 				};
 				if (CustomComponents.Checkbox) {
 					CustomComponents.Checkbox.Types = {
-					DEFAULT: "DEFAULT",
-					GHOST: "GHOST",
-					INVERTED: "INVERTED"
+						DEFAULT: "DEFAULT",
+						GHOST: "GHOST",
+						INVERTED: "INVERTED"
 					};
 					CustomComponents.Checkbox.Shapes = {
 						BOX: "box",
@@ -6062,11 +6080,11 @@ module.exports = (_ => {
 							.replace(/\$month/g, timeObj.toLocaleDateString(language, {month: "long"}))
 							.replace(/\$dayS/g, timeObj.toLocaleDateString(language, {weekday: "short"}))
 							.replace(/\$day/g, timeObj.toLocaleDateString(language, {weekday: "long"}))
-							.replace(/\$agoAmount/g, daysAgo < 0 || daysAgo > 1 ? Internal.DiscordObjects.Timestamp(timeObj.getTime()).fromNow() : BDFDB.LanguageUtils.LanguageStrings[`SEARCH_SHORTCUT_${daysAgo == 1 ? "YESTERDAY" : "TODAY"}`])
-							.replace(/\$agoWeekdayS/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "short"}) : BDFDB.LanguageUtils.LanguageStrings[`SEARCH_SHORTCUT_${daysAgo == 1 ? "YESTERDAY" : "TODAY"}`])
-							.replace(/\$agoWeekday/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "long"}) : BDFDB.LanguageUtils.LanguageStrings[`SEARCH_SHORTCUT_${daysAgo == 1 ? "YESTERDAY" : "TODAY"}`])
-							.replace(/\$agoDays/g, daysAgo < 0 ? "" : daysAgo > 1 ? BDFDB.LanguageUtils.LanguageStringsFormat(`GAME_LIBRARY_LAST_PLAYED_DAYS`, daysAgo) : BDFDB.LanguageUtils.LanguageStrings[`SEARCH_SHORTCUT_${daysAgo == 1 ? "YESTERDAY" : "TODAY"}`])
-							.replace(/\$agoDate/g, daysAgo < 0 || daysAgo > 1 ? date : BDFDB.LanguageUtils.LanguageStrings[`SEARCH_SHORTCUT_${daysAgo == 1 ? "YESTERDAY" : "TODAY"}`])
+							.replace(/\$agoAmount/g, daysAgo < 0 || daysAgo > 1 ? Internal.DiscordObjects.Timestamp(timeObj.getTime()).fromNow() : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
+							.replace(/\$agoWeekdayS/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "short"}) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
+							.replace(/\$agoWeekday/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "long"}) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
+							.replace(/\$agoDays/g, daysAgo < 0 ? "" : daysAgo > 1 ? BDFDB.LanguageUtils.LanguageStringsFormat(`LAST_PLAYED_PLACEHOLDER`, daysAgo) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
+							.replace(/\$agoDate/g, daysAgo < 0 || daysAgo > 1 ? date : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
 							.replace(/\(\)|\[\]/g, "").replace(/,\s*$|^\s*,/g, "").replace(/ +/g, " ").trim();
 					};
 					CustomComponents.DateInput.formatDate = function (data, time) {
@@ -6197,7 +6215,7 @@ module.exports = (_ => {
 								}),
 								BDFDB.ReactUtils.createElement("div", {
 									className: BDFDB.disCN.pageimagetext,
-									children: this.props.text || BDFDB.LanguageUtils.LanguageStrings.AUTOCOMPLETE_NO_RESULTS_HEADER
+									children: this.props.text || BDFDB.LanguageUtils.LanguageStrings.NO_RESULTS
 								})
 							]
 						});
@@ -6285,6 +6303,19 @@ module.exports = (_ => {
 						});
 					}
 				};
+				
+				CustomComponents.FormTitle = reactInitialized && class BDFDB_FormTitle extends Internal.LibraryModules.React.Component {
+					render() {
+						return BDFDB.ReactUtils.createElement(Internal.NativeSubComponents.FormTitle, this.props);
+					}
+				};
+				CustomComponents.FormTitle.Title = CustomComponents.FormTitle;
+				CustomComponents.FormTitle.Tags = new Proxy({}, {
+					get: function (_, item) {
+						let tag = item && item.toLowerCase();
+						return tag.startsWith("h") && tag.length == 2 ? tag : "h5";
+					}
+				});
 				
 				CustomComponents.GuildSummaryItem = reactInitialized && class BDFDB_GuildSummaryItem extends Internal.LibraryModules.React.Component {
 					defaultRenderGuild(guild, isLast) {
@@ -7203,51 +7234,65 @@ module.exports = (_ => {
 							className: BDFDB.DOMUtils.formatClassName(this.props.labelClassName, BDFDB.disCN.marginreset),
 							tag: this.props.tag,
 							children: this.props.label
-						}) : BDFDB.ReactUtils.createElement(Internal.LibraryComponents.SettingsLabel, {
-							className: BDFDB.DOMUtils.formatClassName(this.props.labelClassName),
-							mini: this.props.mini,
-							label: this.props.label
+						}) : BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TextElement, {
+							size: Internal.LibraryComponents.TextElement.Sizes.SIZE_16,
+							children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.SettingsLabel, {
+								className: BDFDB.DOMUtils.formatClassName(this.props.labelClassName),
+								mini: this.props.mini,
+								label: this.props.label
+							})
 						})) : null;
 						let margin = this.props.margin != null ? this.props.margin : (this.props.mini ? 0 : 8);
 						return BDFDB.ReactUtils.createElement("div", {
-							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.settingsrow, BDFDB.disCN.settingsrowcontainer, this.state.disabled && BDFDB.disCN.settingsrowdisabled, margin != null && (InternalData.DiscordClasses[`marginbottom${margin}`] && BDFDB.disCN[`marginbottom${margin}`] || margin == 0 && BDFDB.disCN.marginreset)),
+							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.settingsrowcontainer, margin != null && (InternalData.DiscordClasses[`marginbottom${margin}`] && BDFDB.disCN[`marginbottom${margin}`] || margin == 0 && BDFDB.disCN.marginreset)),
 							id: this.props.id,
 							children: [
 								this.props.dividerTop ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.FormDivider, {
 									className: this.props.mini ? BDFDB.disCN.marginbottom4 : BDFDB.disCN.marginbottom8
 								}) : null,
 								BDFDB.ReactUtils.createElement("div", {
-									className: BDFDB.disCN.settingsrowlabel,
+									className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.settingsrow, this.state.disabled && BDFDB.disCN.settingsrowdisabled),
+									"data-layout": "horizontal",
 									children: [
-										label && !this.props.basis ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Flex.Child, {
-											grow: 1,
-											shrink: 1,
-											wrap: true,
-											children: label
-										}) : label,
-										this.props.labelChildren,
+										BDFDB.ReactUtils.createElement("div", {
+											className: BDFDB.disCN.settingsrowlabel,
+											children: [
+												label && !this.props.basis ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Flex.Child, {
+													grow: 1,
+													shrink: 1,
+													wrap: true,
+													children: label
+												}) : label,
+												typeof this.props.note == "string" ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Flex.Child, {
+													className: BDFDB.disCN.settingsrownote,
+													children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TextElement, {
+														size: Internal.LibraryComponents.TextElement.Sizes.SIZE_12,
+														children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TextScroller, {
+															speed: 2,
+															children: this.props.note
+														})
+													})
+												}) : null
+											].flat(10).filter(n => n)
+										}),
 										BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Flex.Child, {
 											className: BDFDB.disCNS.settingsrowcontrol + BDFDB.disCN.flexchild,
 											grow: 0,
 											shrink: this.props.basis ? 0 : 1,
 											basis: this.props.basis,
 											wrap: true,
-											children: BDFDB.ReactUtils.createElement(childComponent, BDFDB.ObjectUtils.exclude(Object.assign(BDFDB.ObjectUtils.exclude(this.props, "className", "id", "type"), this.props.childProps, {
-												disabled: this.state.disabled,
-												onChange: this.handleChange.bind(this),
-												onValueChange: this.handleChange.bind(this)
-											}), "basis", "margin", "dividerBottom", "dividerTop", "label", "labelClassName", "labelChildren", "tag", "mini", "note", "childProps"))
+											style: {"flex-direction": "row", "align-items": "center"},
+											children: [
+												this.props.labelChildren,
+												BDFDB.ReactUtils.createElement(childComponent, BDFDB.ObjectUtils.exclude(Object.assign(BDFDB.ObjectUtils.exclude(this.props, "className", "id", "type"), this.props.childProps, {
+													disabled: this.state.disabled,
+													onChange: this.handleChange.bind(this),
+													onValueChange: this.handleChange.bind(this)
+												}), "basis", "margin", "dividerBottom", "dividerTop", "label", "labelClassName", "labelChildren", "tag", "mini", "note", "childProps"))
+											].flat(10).filter(n => n)
 										})
-									].flat(10).filter(n => n)
+									]
 								}),
-								typeof this.props.note == "string" ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Flex.Child, {
-									className: BDFDB.disCN.settingsrownote,
-									children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.FormText.Text, {
-										disabled: this.state.disabled,
-										type: Internal.LibraryComponents.FormText.Types.DESCRIPTION,
-										children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TextScroller, {speed: 2, children: this.props.note})
-									})
-								}) : null,
 								this.props.dividerBottom ? BDFDB.ReactUtils.createElement(Internal.LibraryComponents.FormDivider, {
 									className: this.props.mini ? BDFDB.disCN.margintop4 : BDFDB.disCN.margintop8
 								}) : null
@@ -7259,10 +7304,10 @@ module.exports = (_ => {
 				CustomComponents.SettingsLabel = reactInitialized && class BDFDB_SettingsLabel extends Internal.LibraryModules.React.Component {
 					render() {
 						return BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TextScroller, {
-							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.settingsrowtitle, this.props.mini && BDFDB.disCN.settingsrowtitlemini, BDFDB.disCN.cursordefault),
-							speed: 2,
-							children: this.props.label
-						});
+								className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.settingsrowtitle, this.props.mini && BDFDB.disCN.settingsrowtitlemini, BDFDB.disCN.cursordefault),
+								speed: 2,
+								children: this.props.label
+							})
 					}	
 				};
 				
@@ -7354,7 +7399,7 @@ module.exports = (_ => {
 									})).flat(10).filter(n => n)
 								})
 							]
-						}), "title", "data", "settings", "renderLabel", "cardClassName", "cardStyle", "checkboxColor", "getCheckboxColor",  "getCheckboxValue", "onCheckboxChange", "configWidth", "biggestWidth", "pagination"));
+						}), "title", "data", "settings", "renderLabel", "cardClassName", "cardStyle", "checkboxColor", "getCheckboxColor", "getCheckboxValue", "onCheckboxChange", "configWidth", "biggestWidth", "pagination"));
 					}
 					render() {
 						this.props.settings = BDFDB.ArrayUtils.is(this.props.settings) ? this.props.settings : [];
@@ -7779,7 +7824,7 @@ module.exports = (_ => {
 					}
 				};
 				
-				CustomComponents.TextElement = reactInitialized && class BDFDB_TextScroller extends Internal.LibraryModules.React.Component {
+				CustomComponents.TextElement = reactInitialized && class BDFDB_TextElement extends Internal.LibraryModules.React.Component {
 					render() {
 						let color = this.props.color != undefined ? this.props.color && Internal.DiscordConstants.ColorsCSS[this.props.color] : Internal.DiscordConstants.ColorsCSS[CustomComponents.TextElement.Colors.STANDARD];
 						return BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Text, {
@@ -8234,7 +8279,6 @@ module.exports = (_ => {
 					after: [
 						"DiscordTag",
 						"NameContainerAvatar",
-						"UserHeaderAvatar",
 						"UserPanelHeader",
 						"UserProfileHeader"
 					],
@@ -8373,10 +8417,6 @@ module.exports = (_ => {
 				};
 				Internal.processSearchBar = function (e) {
 					if (typeof e.instance.props.query != "string") e.instance.props.query = "";
-				};
-				Internal.processUserHeaderAvatar = function (e) {
-					if (!e.instance.props.user) return;
-					e.returnvalue = Internal._processAvatarRender(e.instance.props.user, e.returnvalue) || e.returnvalue;
 				};
 				Internal.processUserPanelHeader = function (e) {
 					if (!e.instance.props.user) return;
