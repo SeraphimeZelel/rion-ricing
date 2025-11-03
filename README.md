@@ -18,6 +18,8 @@ This contains My Fedora Linux dotfiles for a Hyprland-looks in **GNOME** setup.
 >
 > All Configurations were meant to be used with `Pywal`
 
+## Check [Tutorial](https://github.com/SeraphimeZelel/rion-ricing/wiki/Tutorial)
+
 ---
 
 ## GNOME Extensions
