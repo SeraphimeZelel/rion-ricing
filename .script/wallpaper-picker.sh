@@ -26,7 +26,8 @@ generate_menu(){
     # Find all images and sort naturally
     while IFS= read -r img; do
         [[ -f "$img" ]] || continue
-        thumb="$CACHE_DIR/$(basename "${img%.*}").png"
+        ext="${img##*.}"
+        thumb="$CACHE_DIR/$(basename "${img%.*}").$ext"
 
         # Generate thumbnail if missing or outdated
         if [[ ! -f "$thumb" ]] || [[ "$img" -nt "$thumb" ]]; then
