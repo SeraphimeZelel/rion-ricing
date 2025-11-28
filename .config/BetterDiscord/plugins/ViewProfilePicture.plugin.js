@@ -1,7 +1,7 @@
 /**
  * @name ViewProfilePicture
  * @description Adds a button to the user popout and profile that allows you to view the Avatar and banner.
- * @version 1.3.1
+ * @version 1.3.2
  * @author Skamt
  * @website https://github.com/Skamt/BDAddons/tree/main/ViewProfilePicture
  * @source https://raw.githubusercontent.com/Skamt/BDAddons/main/ViewProfilePicture/ViewProfilePicture.plugin.js
@@ -11,7 +11,7 @@
 var Config_default = {
 	"info": {
 		"name": "ViewProfilePicture",
-		"version": "1.3.1",
+		"version": "1.3.2",
 		"description": "Adds a button to the user popout and profile that allows you to view the Avatar and banner.",
 		"source": "https://raw.githubusercontent.com/Skamt/BDAddons/main/ViewProfilePicture/ViewProfilePicture.plugin.js",
 		"github": "https://github.com/Skamt/BDAddons/tree/main/ViewProfilePicture",
@@ -170,11 +170,19 @@ StylesLoader_default.push(`/* View Profile Button */
 	margin: auto;
 }
 
-.VPP-carousel button {
+.VPP-carousel > div[role="button"] {
 	margin: 0 15px;
-	opacity: 0.8;
-	background: var(--background-base-low);
+	background: var(--background-surface-high);
+	color: var(--interactive-normal);
 	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.VPP-carousel > div[role="button"]:hover {
+	background: var(--background-surface-highest);
+	color: var(--interactive-hover);
 }
 
 /* Copy color button */
@@ -352,45 +360,37 @@ var { zustand } = getMangled(Filters.bySource("useSyncExternalStoreWithSelector"
 	zustand: () => true
 });
 var subscribeWithSelector = getModule(Filters.byStrings("equalityFn", "fireImmediately"), { searchExports: true });
-var zustand_default = zustand;
+
+function create(initialState) {
+	const Store = zustand(initialState);
+	Object.defineProperty(Store, "state", {
+		configurable: false,
+		get: () => Store.getState()
+	});
+	return Store;
+}
 
 // common/Utils/Settings.js
-var SettingsStoreSelectors = {};
-var persistMiddleware = (config) => (set, get, api) => config((args) => (set(args), Data.save("settings", get().getRawState())), get, api);
-var SettingsStore = Object.assign(
-	zustand_default(
-		persistMiddleware(
-			subscribeWithSelector((set, get) => {
-				const settingsObj = /* @__PURE__ */ Object.create(null);
-				for (const [key, value] of Object.entries({
-						...Config_default.settings,
-						...Data.load("settings")
-					})) {
-					settingsObj[key] = value;
-					settingsObj[`set${key}`] = (newValue) => set({
-						[key]: newValue });
-					SettingsStoreSelectors[key] = (state) => state[key];
-				}
-				settingsObj.getRawState = () => {
-					return Object.entries(get()).filter(([, val]) => typeof val !== "function").reduce((acc, [key, val]) => {
-						acc[key] = val;
-						return acc;
-					}, {});
-				};
-				return settingsObj;
-			})
-		)
-	), {
-		useSetting: function(key) {
-			return this((state) => [state[key], state[`set${key}`]]);
-		},
-		selectors: SettingsStoreSelectors
+var SettingsStore = create(subscribeWithSelector(() => Object.assign(Config_default.settings, Data.load("settings") || {})));
+((state) => {
+	const selectors = {};
+	const actions = {};
+	for (const [key, value] of Object.entries(state)) {
+		actions[`set${key}`] = (newValue) => SettingsStore.setState({
+			[key]: newValue });
+		selectors[key] = (state2) => state2[key];
 	}
+	Object.defineProperty(SettingsStore, "selectors", { value: Object.assign(selectors) });
+	Object.assign(SettingsStore, actions);
+})(SettingsStore.getInitialState());
+SettingsStore.subscribe(
+	(state) => state,
+	() => Data.save("settings", SettingsStore.state)
 );
-Object.defineProperty(SettingsStore, "state", {
-	configurable: false,
-	get() {
-		return this.getState();
+Object.assign(SettingsStore, {
+	useSetting: (key) => {
+		const val = SettingsStore((state) => state[key]);
+		return [val, SettingsStore[`set${key}`]];
 	}
 });
 var Settings_default = SettingsStore;
@@ -404,7 +404,8 @@ StylesLoader_default.push(`.transparent-background.transparent-background{
 // common/Utils/Modals/index.jsx
 var ModalActions = /* @__PURE__ */ getMangled("onCloseRequest:null!=", {
 	openModal: /* @__PURE__ */ Filters.byStrings("onCloseRequest:null!="),
-	closeModal: /* @__PURE__ */ Filters.byStrings(".setState", ".getState()[")
+	closeModal: /* @__PURE__ */ Filters.byStrings(".setState", ".getState()["),
+	ModalStore: /* @__PURE__ */ Filters.byKeys("getState")
 });
 var Modals = /* @__PURE__ */ getMangled( /* @__PURE__ */ Filters.bySource("root", "headerIdIsManaged"), {
 	ModalRoot: /* @__PURE__ */ Filters.byStrings("rootWithShadow"),

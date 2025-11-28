@@ -4,7 +4,9 @@
         "showToasts": true,
         "mediaKeys": false,
         "bdContextMenu": true,
-        "themeAttributes": true
+        "themeAttributes": true,
+        "notificationPosition": "top-right",
+        "notificationEnabled": true
     },
     "addons": {
         "addonErrors": false,
@@ -23,10 +25,13 @@
         "openAction": "settings"
     },
     "editor": {
+        "theme": "system",
         "lineNumbers": true,
         "minimap": true,
         "hover": true,
         "quickSuggestions": true,
+        "insertSpaces": false,
+        "tabSize": 4,
         "fontSize": 14,
         "renderWhitespace": "selection"
     },
@@ -43,6 +48,7 @@
         "reactDevTools": false,
         "inspectElement": false,
         "devToolsWarning": false,
-        "recovery": true
+        "recovery": true,
+        "canary": false
     }
 }

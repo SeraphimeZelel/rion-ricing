@@ -1,10 +1,10 @@
 {
 	"all": {
 		"changeLogs": {
-			"BDFDB": "4.3.6",
+			"BDFDB": "4.3.7",
 			"BetterFriendList": "1.6.3",
 			"EditUsers": "5.0.7",
-			"ImageUtilities": "5.6.3",
+			"ImageUtilities": "5.6.4",
 			"StaffTag": "1.6.9"
 		},
 		"choices": {
@@ -18,8 +18,8 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "58a58732f32aa581fda80294aa968d3a06a1d78d",
-			"0BDFDB.raw.css": "92b08d02d2935f9afc99b54b04ab3e11ea6aa012"
+			"0BDFDB.data.json": "e457aff7138c8ec583370e2b164833640e27f91b",
+			"0BDFDB.raw.css": "709588842bae720d3d97c81e785af1adcbfb5a37"
 		}
 	}
 }

@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.3.6
+ * @version 4.3.7
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -2690,7 +2690,7 @@ module.exports = (_ => {
 				};
 				MyReact.findDOMNode = function (instance, onlyChildren) {
 					if (Node.prototype.isPrototypeOf(instance)) return instance;
-					if (!instance || !instance.updater || typeof instance.updater.isMounted !== "function" || !instance.updater.isMounted(instance)) return null;
+					if (!instance || !instance.updater) return null;
 					let node = Internal.LibraryModules.ReactDOM.findDOMNode && Internal.LibraryModules.ReactDOM.findDOMNode(instance);
 					for (let path of ["child.stateNode", "child.ref.current", !onlyChildren && "return.stateNode", !onlyChildren && "return.return.stateNode"]) if (!node && path) {
 						node = BDFDB.ObjectUtils.get(instance[BDFDB.ReactUtils.instanceKey] || instance, path);
@@ -3017,7 +3017,7 @@ module.exports = (_ => {
 					}
 				};
 				MyReact.forceUpdate = function (...instances) {
-					for (let ins of instances.flat(10).filter(n => n)) if (ins.updater && typeof ins.updater.isMounted == "function" && ins.updater.isMounted(ins)) ins.forceUpdate();
+					for (let ins of instances.flat(10).filter(n => n)) if (ins.updater) ins.forceUpdate();
 				};
 				MyReact.getInstance = function (node) {
 					if (!BDFDB.ObjectUtils.is(node)) return null;

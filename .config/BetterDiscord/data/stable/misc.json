@@ -1,5 +1,5 @@
 {
-    "version": "1.12.8",
+    "version": "1.13.0",
     "addonlistControls": {
         "plugin": {
             "view": "grid"
@@ -10,11 +10,11 @@
     },
     "drawerStates": {
         "settings": {
-            "customcss": true,
+            "customcss": false,
             "window": true,
-            "addons": true,
-            "store": true,
-            "editor": false,
+            "addons": false,
+            "store": false,
+            "editor": true,
             "developer": true
         }
     }
