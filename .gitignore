@@ -1,1 +1,4 @@
 .zshrc
+.config/BetterDiscord/data/
+.config/BetterDiscord/plugins/
+.config/fastfetch/.reload_flag
