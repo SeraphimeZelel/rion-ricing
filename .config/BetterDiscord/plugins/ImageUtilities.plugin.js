@@ -2,7 +2,7 @@
  * @name ImageUtilities
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 5.6.4
+ * @version 5.6.6
  * @description Adds several Utilities for Images/Videos (Gallery, Download, Reverse Search, Zoom, Copy, etc.)
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -56,7 +56,7 @@ module.exports = (_ => {
 		stop () {}
 		getSettingsPanel () {
 			let template = document.createElement("template");
-			template.innerHTML = `<div style="color: var(--text-primary); font-size: 16px; font-weight: 300; white-space: pre; line-height: 22px;">The Library Plugin needed for ${this.name} is missing.\nPlease click <a style="font-weight: 500;">Download Now</a> to install it.</div>`;
+			template.innerHTML = `<div style="color: var(--text-strong); font-size: 16px; font-weight: 300; white-space: pre; line-height: 22px;">The Library Plugin needed for ${this.name} is missing.\nPlease click <a style="font-weight: 500;">Download Now</a> to install it.</div>`;
 			template.content.firstElementChild.querySelector("a").addEventListener("click", this.downloadLibrary);
 			return template.content.firstElementChild;
 		}
@@ -361,7 +361,7 @@ module.exports = (_ => {
 						align-items: center;
 						min-width: 500px;
 					}
-					${BDFDB.dotCN.imagemodal + BDFDB.dotCNS.modalcarouselmodalmodern + BDFDB.notCN._imageutilitiessibling} > ${BDFDB.dotCN.imagewrapper} {
+					${BDFDB.dotCN.imagemodal + BDFDB.dotCNS.modalcarouselmodal + BDFDB.notCN._imageutilitiessibling} > ${BDFDB.dotCN.imagewrapper} {
 						min-width: unset;
 					}
 					${BDFDB.dotCNS.imagemodal + BDFDB.notCN._imageutilitiessibling} > ${BDFDB.dotCN.imagewrapper} img {
@@ -447,30 +447,7 @@ module.exports = (_ => {
 					${BDFDB.dotCN._imageutilitiesoperations} {
 						position: absolute;
 						display: flex;
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.imagemodalimageoptionscontainer} {
-						position: static !important;
-						display: flex !important;
-						flex-wrap: unset !important;
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.imagemodalimagedownloadlink} {
-						position: relative !important;
-						white-space: nowrap !important;
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.anchor + BDFDB.dotCN.imagemodalimagedownloadlink} {
-						margin: 0 !important;
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.imagemodalimageforward} {
-						display: flex;
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.imagemodalimageforward}::before {
-						content: "|";
-						margin-right: 6px;
-						transition: opacity .15s ease
-					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.imagemodalimageforward}:hover::before {
-						opacity: .5;
-					}
+					5
 				`;
 			}
 			
@@ -1024,9 +1001,6 @@ module.exports = (_ => {
 				else if (e.returnvalue) {
 					let url = this.getImageSrc(viewedImage && viewedImage.proxy_url || e.instance.props.items[0].src || e.instance.props.items[0].original);
 					
-					let zoomedFitWrapper = BDFDB.ReactUtils.findChild(e.returnvalue, {props: [["className", BDFDB.disCN.imagemodalimagezoomedfit]]});
-					if (zoomedFitWrapper) zoomedFitWrapper.props.className = BDFDB.ArrayUtils.remove(zoomedFitWrapper.props.className.split(" "), BDFDB.disCN.imagemodalimagezoomedfit, true).join(" ");
-					
 					if (this.settings.viewerSettings.details) {
 						e.returnvalue.props.children.push(BDFDB.ReactUtils.createElement("div", {
 							className: BDFDB.disCN._imageutilitiesdetailswrapper,
@@ -1218,7 +1192,7 @@ module.exports = (_ => {
 							BDFDB.ReactUtils.forceUpdate(e.instance);
 						}
 					}
-					if (e.methodname == "componentWillUnmount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCNC.modalcarouselmodal + BDFDB.dotCN.modalcarouselmodalmodern, e.node)) {
+					if (e.methodname == "componentWillUnmount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCN.modalcarouselmodal, e.node)) {
 						BDFDB.TimeUtils.clear(viewedImageTimeout);
 						viewedImageTimeout = BDFDB.TimeUtils.timeout(_ => {
 							firstViewedImage = null;
@@ -1226,7 +1200,7 @@ module.exports = (_ => {
 							this.cleanupListeners("Gallery");
 						}, 1000);
 					}
-					if (e.methodname == "componentDidMount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCNC.modalcarouselmodal + BDFDB.dotCN.modalcarouselmodalmodern, e.node)) {
+					if (e.methodname == "componentDidMount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCN.modalcarouselmodal, e.node)) {
 						BDFDB.TimeUtils.clear(viewedImageTimeout);
 						let modal = BDFDB.DOMUtils.getParent(BDFDB.dotCN.modal, e.node);
 						if (modal) {
@@ -1531,7 +1505,7 @@ module.exports = (_ => {
 			copyFile (urls) {
 				this.requestFile(urls, url => {
 					let type = this.isValid(url, "video") ? BDFDB.LanguageUtils.LanguageStrings.VIDEO : BDFDB.LanguageUtils.LanguageStrings.IMAGE;
-					BDFDB.LibraryModules.WindowUtils.copyImage(url);
+					BDFDB.LibraryModules.WindowUtils.copyImage(url.replace("https://media.discordapp.net", "https://cdn.discordapp.com"));
 					BDFDB.NotificationUtils.toast(this.labels.toast_copy_success.replace("{{var0}}", type), {type: "success"});
 				}, _ => {
 					BDFDB.NotificationUtils.toast(this.labels.toast_copy_failed.replace("{{var0}}", BDFDB.LanguageUtils.LanguageStrings.IMAGE), {type: "danger"});

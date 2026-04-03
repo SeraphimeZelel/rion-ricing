@@ -3,7 +3,6 @@
         "voiceDisconnect": false,
         "showToasts": true,
         "mediaKeys": false,
-        "bdContextMenu": true,
         "themeAttributes": true,
         "notificationPosition": "top-right",
         "notificationEnabled": true
@@ -43,7 +42,7 @@
     },
     "developer": {
         "debugLogs": false,
-        "devTools": false,
+        "devTools": true,
         "debuggerHotkey": false,
         "reactDevTools": false,
         "inspectElement": false,

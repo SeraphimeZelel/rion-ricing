@@ -660,33 +660,13 @@ pip install haishoku
 
 </details>
 
-## 🛠 Help & Setup Guide
+## Help & Setup Guide
 
 > [!WARNING]  
 > The instructions below will **overwrite your existing config files**.  
 > Don’t worry — your old configs will be safely moved into a backup folder with a timestamp.
 
-Quick setup instructions:
-
-### Option A — Automated install (recommended)
-
-1. Clone the repo
-   ```bash
-   git clone https://github.com/SeraphimeZelel/rion-ricing.git ~/.rion-dotfiles
-   cd ~/.rion-dotfiles
-   ```
-2. Run the combined installer
-   ```bash
-   ./install.sh
-   ```
-   - Installs required applications for GNOME rice
-   - Creates symbolic links for configs into `~/.config`
-   - Links scripts from `.script/` into `~/.local/bin` and makes them executable
-   - Backs up existing configs/scripts into a timestamped folder in your home
-
-> Note: If you only want to install applications, run `./install-apps.sh`.
-
-### Option B — Manual steps
+### Quick setup instructions:
 
 1. **Clone the repo**
    ```bash
@@ -733,7 +713,7 @@ Quick setup instructions:
 > Don’t forget to install GNOME extensions manually from https://extensions.gnome.org:
 > Forge, Blur My Shell, Just Perfection, Open Bar, Quick Settings Tweaks.
 
-## 📝 Notes
+## Notes
 
 If `wallpaper-picker.sh` fails to set your wallpaper, try renaming the file with the prefix `Anything_`.
 Example:
@@ -743,7 +723,7 @@ Endfield_NotReal.png
 Endfield_Tomorrow.png
 ```
 
-### ⌨️ Keyboard Shortcut
+### Keyboard Shortcut
 
 | Name             | Command                                         | Shortcut    |
 | ---------------- | ----------------------------------------------- | ----------- |

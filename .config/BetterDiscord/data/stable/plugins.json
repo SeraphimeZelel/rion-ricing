@@ -10,7 +10,7 @@
     "BetterFriendList": false,
     "MemberCount": false,
     "BetterFolders": false,
-    "ViewProfilePicture": true,
+    "ViewProfilePicture": false,
     "ImageUtilities": true,
     "HideDisabledEmojis": true
 }

@@ -1,10 +1,18 @@
 {
 	"all": {
+		"ModuleIdCache": {
+			"DiscordTag": "297413",
+			"EmojiPickerListRow": "923861",
+			"LazyImage": "619517",
+			"Menu": "861672",
+			"MessageAccessories": "756369",
+			"Spoiler": "302031"
+		},
 		"changeLogs": {
-			"BDFDB": "4.3.7",
+			"BDFDB": "4.4.7",
 			"BetterFriendList": "1.6.3",
 			"EditUsers": "5.0.7",
-			"ImageUtilities": "5.6.4",
+			"ImageUtilities": "5.6.6",
 			"StaffTag": "1.6.9"
 		},
 		"choices": {
@@ -18,8 +26,8 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "e457aff7138c8ec583370e2b164833640e27f91b",
-			"0BDFDB.raw.css": "709588842bae720d3d97c81e785af1adcbfb5a37"
+			"0BDFDB.data.json": "1ef679459a2ffe8df025bf3c9b8323c492d65e6e",
+			"0BDFDB.raw.css": "edada1edc762888eebc5aa44e5b8c1baf2e60104"
 		}
 	}
 }

@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 --- Font Settings
 config.font_size = 14
 config.line_height = 1.2
-config.font = wezterm.font("FiraMono Nerd Font")
+config.font = wezterm.font("FiraMono Nerd Font Mono")
 
 --- Colors
 config.colors = {

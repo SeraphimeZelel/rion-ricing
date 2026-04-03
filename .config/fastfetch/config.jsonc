@@ -50,7 +50,7 @@
       "keyColor": "white"
     },
     {
-      "type": "command",
+      "type": "custom",
       "key": "wife  ",
       "format": "Wiš'adel",
       "keyColor": "white"
