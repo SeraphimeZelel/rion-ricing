@@ -36,7 +36,7 @@ generate_menu(){
 
         # Output for wofi
         echo -en "img:$thumb\x00info:$(basename "$img")\x1f$img\n"
-    done < <(find "$WALLPAPERS" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | sort -V)
+    done < <(find -L "$WALLPAPERS" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | sort -V)
 }
 
 
