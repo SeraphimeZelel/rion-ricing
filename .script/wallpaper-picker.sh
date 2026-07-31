@@ -89,6 +89,18 @@ else
     "$WAL_BIN" -i "$SELECTED" --backend wal --cols16
 fi
 
+# Apply Cursor theme
+if [[ "$WIFENAME" == "Kal'tsit" ]]; then
+    gsettings set org.gnome.desktop.interface cursor-theme "Kal'tsit Esperanta"
+elif [[ "$WIFENAME" == "Yangyang" ]]; then
+    gsettings set org.gnome.desktop.interface cursor-theme "Yangyang"
+elif [[ "$WIFENAME" == "Denia" ]]; then
+    gsettings set org.gnome.desktop.interface cursor-theme "Denia"
+elif [[ "$WIFENAME" == "Zhuang Fangyi" ]]; then
+    gsettings set org.gnome.desktop.interface cursor-theme "Zhuang Fangyi"
+else
+    gsettings set org.gnome.desktop.interface cursor-theme "Kal'tsit Esperanta"
+fi
 # Update GNOME wallpaper
 gsettings set org.gnome.desktop.background picture-uri-dark "file://$SELECTED"
 gsettings set org.gnome.desktop.screensaver picture-uri "file://$SELECTED"

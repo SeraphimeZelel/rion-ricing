@@ -59,10 +59,10 @@
 			"details": true
 		},
 		"zoomSettings": {
-			"clickMode": false,
-			"lensSize": 200,
+			"clickMode": true,
+			"lensSize": 3178,
 			"pixelMode": false,
-			"zoomLevel": 2,
+			"zoomLevel": 1.7,
 			"zoomSpeed": 0.1
 		}
 	}

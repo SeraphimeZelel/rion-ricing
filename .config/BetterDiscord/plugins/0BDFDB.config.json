@@ -1,18 +1,76 @@
 {
 	"all": {
+		"ClassModuleCache": {
+			"AccountDetailsButtons": "762538",
+			"AppMount": "668326",
+			"AppOuter": "751564",
+			"Attachment": "541662",
+			"AttachmentCover": "150219",
+			"Avatar": "653403",
+			"Button": "420833",
+			"ChangeLog": "614099",
+			"ChannelTextAreaButton": "887",
+			"ChatWindow": "354919",
+			"Embed": "815472",
+			"Flex": "582013",
+			"FlexProperties": "341440",
+			"FlowerStar": "166694",
+			"GifFavoriteButton": "680720",
+			"GuildChannelsWrapper": "153822",
+			"GuildFolder": "195451",
+			"GuildHeader": "765529",
+			"GuildItem": "441174",
+			"GuildsWrapper": "221305",
+			"HoverCard": "274446",
+			"ImageModalMediaWrapper": "142248",
+			"ImageWrapper": "397813",
+			"Input": "498740",
+			"ItemLayerContainer": "113825",
+			"Margins": "522826",
+			"Menu": "979383",
+			"MenuSlider": "946470",
+			"MessageElements": "184811",
+			"MessageToolbarItems": "997248",
+			"MessagesPopoutTabBar": "668451",
+			"MessagesWrap": "408899",
+			"Modal": "156453",
+			"ModalCarouselNav": "189645",
+			"ModalNew": "617736",
+			"ModalSub": "282110",
+			"NameTag": "931531",
+			"Notice": "396769",
+			"NoticePlatform": "789167",
+			"PeoplesNowPlayingMember": "102490",
+			"PictureInPicture": "179698",
+			"Scroller": "947876",
+			"SettingsItems": "488920",
+			"Slider": "300839",
+			"Spinner": "990692",
+			"Spoiler": "275504",
+			"Switch": "180846",
+			"Table": "445740",
+			"TitleBar": "180333",
+			"Tooltip": "622399",
+			"TooltipGuild": "833971",
+			"UserHeaderUsername": "211180",
+			"UserPopoutBody": "890717",
+			"UserProfileList": "341934",
+			"UserProfileListScroller": false,
+			"UserSummaryItem": "250296",
+			"UserTheme": "518295"
+		},
 		"ModuleIdCache": {
 			"DiscordTag": "297413",
-			"EmojiPickerListRow": "923861",
+			"EmojiPickerListRow": "267889",
 			"LazyImage": "619517",
-			"Menu": "861672",
-			"MessageAccessories": "756369",
+			"Menu": "980707",
 			"Spoiler": "302031"
 		},
 		"changeLogs": {
-			"BDFDB": "4.4.7",
+			"BDFDB": "4.5.4",
 			"BetterFriendList": "1.6.3",
 			"EditUsers": "5.0.7",
-			"ImageUtilities": "5.6.6",
+			"ImageUtilities": "5.6.7",
 			"StaffTag": "1.6.9"
 		},
 		"choices": {
@@ -26,8 +84,8 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "1ef679459a2ffe8df025bf3c9b8323c492d65e6e",
-			"0BDFDB.raw.css": "edada1edc762888eebc5aa44e5b8c1baf2e60104"
+			"0BDFDB.data.json": "57d995f0a798d25301103823c8dd78cbaff23414",
+			"0BDFDB.raw.css": "09d4361abbf6390a119b6d7fd069912fb115d966"
 		}
 	}
 }

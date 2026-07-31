@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.4.7
+ * @version 4.5.4
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -884,9 +884,9 @@ module.exports = (_ => {
 				};
 				for (let type in plugin.changeLog) {
 					type = type.toLowerCase();
-					if (InternalData.DiscordClasses["changelog" + type]) changeLogEntries.push([
+					if (InternalData.DiscordClasses["_bdchangelog" + type]) changeLogEntries.push([
 						BDFDB.ReactUtils.createElement("h1", {
-							className: BDFDB.disCNS["changelog" + type] + BDFDB.disCN.margintop20,
+							className: BDFDB.disCNS._bdchangelogtitle + BDFDB.disCNS["_bdchangelog" + type] + BDFDB.disCN.margintop20,
 							style: {"margin-top": !changeLogEntries.length ? 0 : null},
 							children: BDFDB.LanguageUtils && BDFDB.LanguageUtils.LibraryStrings && BDFDB.LanguageUtils.LibraryStrings["changelog_" + type] || headers[type]
 						}),
@@ -903,12 +903,12 @@ module.exports = (_ => {
 				if (changeLogEntries.length) BDFDB.ModalUtils.open(plugin, {
 					header: `${plugin.name} ${BDFDB.LanguageUtils.LanguageStrings.CHANGE_LOG}`,
 					subHeader: `Version ${plugin.version}`,
-					className: BDFDB.disCN.modalchangelogmodal,
-					contentClassName: BDFDB.disCNS.changelogcontainer + BDFDB.disCN.modalminicontent,
+					className: BDFDB.disCNS._bdchangelog + BDFDB.disCN.modalchangelogmodal,
+					contentClassName: BDFDB.disCNS._bdmodalcontent + BDFDB.disCN.modalminicontent,
 					footerDirection: Internal.LibraryComponents.Flex.Direction.HORIZONTAL,
 					children: changeLogEntries.flat(10).filter(n => n),
 					footerChildren: (plugin == BDFDB || plugin == this || PluginStores.loaded[plugin.name] && PluginStores.loaded[plugin.name] == plugin && plugin.author == "DevilBro") && BDFDB.ReactUtils.createElement("div", {
-						className: BDFDB.disCN.changelogfooter,
+						className: BDFDB.disCN._bdmodalfooter,
 						children: [{
 							href: "https://www.paypal.me/MircoWittrien",
 							name: "PayPal",
@@ -936,7 +936,7 @@ module.exports = (_ => {
 								});
 							}
 						}].map(data => BDFDB.ReactUtils.createElement(data.href ? Internal.LibraryComponents.Anchor : Internal.LibraryComponents.Clickable, {
-							className: BDFDB.disCN.changelogsociallink,
+							className: BDFDB.disCN._bdsocial,
 							href: data.href || "",
 							onClick: !data.onClick ? (_ => {}) : data.onClick,
 							children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.TooltipContainer, {
@@ -1305,50 +1305,50 @@ module.exports = (_ => {
 						Promise.all(BDFDB.ArrayUtils.removeCopies(imports).map(i => req.e(i))).then(_ => Promise.all(BDFDB.ArrayUtils.removeCopies(menuIndexes).map(i => req(i)))).then(callback);
 					});
 				};
-				
+
+				let _moduleIndex = null, _moduleIndexCount = 0;
+
 				BDFDB.ModuleUtils.find = function (filter, config = {}) {
 					let defaultExport = typeof config.defaultExport != "boolean" ? true : config.defaultExport;
 					let onlySearchUnloaded = typeof config.onlySearchUnloaded != "boolean" ? false : config.onlySearchUnloaded;
 					let all = typeof config.all != "boolean" ? false : config.all;
 					const req = Internal.getWebModuleReq();
 					const found = [];
-					const isSearchable = (m, checkObject) => {
-						return m && (checkObject && typeof m == "object" || typeof m == "function") && !m.constructor.toLocaleString().startsWith("function DOMTokenList()") && typeof m.toLocaleString == "function" && m.toLocaleString().indexOf("IntlMessagesProxy") == -1;
-					};
-					if (!onlySearchUnloaded) for (let i in req.c) if (req.c.hasOwnProperty(i) && req.c[i].exports != window) {
-						let m = req.c[i].exports, r = null;
-						if (isSearchable(m, true)) {
-							if (!!(r = filter(m))) {
-								if (all) found.push(defaultExport ? r : req.c[i]);
-								else return defaultExport ? r : req.c[i];
-							}
-							else if (Object.keys(m).length < 400) for (let key of Object.keys(m)) try {
-								if (m[key] && isSearchable(m[key], true) && !!(r = filter(m[key]))) {
-									if (all) found.push(defaultExport ? r : req.c[i]);
-									else return defaultExport ? r : req.c[i];
+					const isSearchable = (m, checkObject) => m && (checkObject && typeof m == "object" || typeof m == "function") && !(m instanceof DOMTokenList) && m[Symbol.toStringTag] !== "IntlMessagesProxy";
+					if (!onlySearchUnloaded) {
+						if (!_moduleIndex) {
+							_moduleIndex = []; _moduleIndexCount = 0;
+							for (let i in req.c) {
+								_moduleIndexCount++;
+								if (req.c[i].exports == window) continue;
+								let m = req.c[i].exports;
+								if (!isSearchable(m, true)) continue;
+								let subs = null, keys = Object.keys(m);
+								if (keys.length < 400) {
+									subs = [];
+									for (let ki = 0; ki < keys.length; ki++) try { let sub = m[keys[ki]]; if (sub && isSearchable(sub, true)) subs.push(sub); } catch (e) {}
+									if (!subs.length) subs = null;
 								}
-							} catch (err) {}
-						}
-						if (config.moduleName && isSearchable(m, true) && isSearchable(m[config.moduleName], true)) {
-							if (!!(r = filter(m[config.moduleName]))) {
-								if (all) found.push(defaultExport ? r : req.c[i]);
-								else return defaultExport ? r : req.c[i];
-							}
-							else if (m[config.moduleName].type && isSearchable(m[config.moduleName].type, true) && !!(r = filter(m[config.moduleName].type))) {
-								if (all) found.push(defaultExport ? r : req.c[i]);
-								else return defaultExport ? r : req.c[i];
+								let def = m.__esModule && isSearchable(m.default, true) ? m.default : null;
+								_moduleIndex.push({m, mod: req.c[i], subs, def, defType: def && isSearchable(m.default.type, true) ? m.default.type : null});
 							}
 						}
-						if (m && m.__esModule && isSearchable(m.default, true)) {
-							if (!!(r = filter(m.default))) {
-								if (all) found.push(defaultExport ? r : req.c[i]);
-								else return defaultExport ? r : req.c[i];
+						const _stale = () => { let c = 0; for (let i in req.c) c++; if (c !== _moduleIndexCount) { _moduleIndex = null; return true; } return false; };
+						if (all && _stale()) return BDFDB.ModuleUtils.find(filter, config);
+						for (let j = 0; j < _moduleIndex.length; j++) {
+							let e = _moduleIndex[j], r = null;
+							if (!!(r = filter(e.m))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
+							if (e.subs) for (let k = 0; k < e.subs.length; k++) if (!!(r = filter(e.subs[k]))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
+							if (config.moduleName && isSearchable(e.m[config.moduleName], true)) {
+								if (!!(r = filter(e.m[config.moduleName]))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
+								else if (e.m[config.moduleName].type && isSearchable(e.m[config.moduleName].type, true) && !!(r = filter(e.m[config.moduleName].type))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
 							}
-							else if (isSearchable(m.default.type, true) && !!(r = filter(m.default.type))) {
-								if (all) found.push(defaultExport ? r : req.c[i]);
-								else return defaultExport ? r : req.c[i];
+							if (e.def) {
+								if (!!(r = filter(e.def))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
+								else if (e.defType && !!(r = filter(e.defType))) { if (all) found.push(defaultExport ? r : e.mod); else return defaultExport ? r : e.mod; }
 							}
 						}
+						if (!all && _stale()) return BDFDB.ModuleUtils.find(filter, config);
 					}
 					for (let i in req.m) if (req.m.hasOwnProperty(i)) {
 						let m = req.m[i];
@@ -1358,11 +1358,12 @@ module.exports = (_ => {
 								else return defaultExport ? req.c[i].exports : req.c[i];
 							}
 							if (!req.c[i] && onlySearchUnloaded && filter(m)) {
-								const resolved = {}, resolved2 = {};
-								m(resolved, resolved2, req);
-								const trueResolved = resolved2 && BDFDB.ObjectUtils.isEmpty(resolved2) ? resolved : resolved2;
-								if (all) found.push(defaultExport ? trueResolved.exports : trueResolved);
-								else return defaultExport ? trueResolved.exports : trueResolved;
+								let exp;
+								try { exp = req(i); } catch (e) {}
+								if (exp && isSearchable(exp, true) && (!config.exportsFilter || config.exportsFilter(exp))) {
+									if (all) found.push(defaultExport ? exp : req.c[i]);
+									else return defaultExport ? exp : req.c[i];
+								}
 							}
 						}
 					}
@@ -1453,24 +1454,34 @@ module.exports = (_ => {
 						return color && color.css || color || "";
 					}
 				});
-				const DiscordColors = Internal.DiscordConstants.Colors || {};
-				Internal.DiscordConstants.Colors = new Proxy(DiscordColors, {
+				const ColorsCSSRaw = Internal.DiscordConstants.ColorsCSSRaw || {};
+				Internal.DiscordConstants.Colors = new Proxy(ColorsCSSRaw, {
 					get: function (_, item) {
-						const color = DiscordColors[item] || DiscordColors[item.toLowerCase()] || DiscordColors[item.toUpperCase()];
-						if (color) return color && color.hex || color || "";
+						const color = ColorsCSSRaw[item] || ColorsCSSRaw[item.toLowerCase()] || ColorsCSSRaw[item.toUpperCase()];
+						if (color && color.resolve) {
+							const resolved = color.resolve() || ""
+							return resolved && resolved.hex && resolved.hex() || "";
+						}
 						else {
 							const item2 = item + "_500";
-							const color2 = DiscordColors[item2] || DiscordColors[item2.toLowerCase()] || DiscordColors[item2.toUpperCase()];
-							if (color2) return color2 && color2.hex || color2 || "";
+							const color2 = ColorsCSSRaw[item2] || ColorsCSSRaw[item2.toLowerCase()] || ColorsCSSRaw[item2.toUpperCase()];
+							if (color2) {
+								const resolved = color2.resolve() || ""
+								return resolved && resolved.hex && resolved.hex() || "";
+							}
 							else {
 								const item3 = item.replace(/-/g, "_");
-								const color3 = DiscordColors[item3] || DiscordColors[item3.toLowerCase()] || DiscordColors[item3.toUpperCase()];
-								if (color3) return color3 && color3.hex || color3 || "";
+								const color3 = ColorsCSSRaw[item3] || ColorsCSSRaw[item3.toLowerCase()] || ColorsCSSRaw[item3.toUpperCase()];
+								if (color3) {
+									const resolved = color3.resolve() || ""
+									return resolved && resolved.hex && resolved.hex() || "";
+								}
 								else {
 									const item4 = item.replace(/_/g, "-");
-									const color4 = DiscordColors[item4] || DiscordColors[item4.toLowerCase()] || DiscordColors[item4.toUpperCase()];
-									return color4 && color4.hex || color4 || "";
-							}
+									const color4 = ColorsCSSRaw[item4] || ColorsCSSRaw[item4.toLowerCase()] || ColorsCSSRaw[item4.toUpperCase()];
+									const resolved = color4 && color4.resolve() || ""
+									return resolved && resolved.hex && resolved.hex() || "";
+								}
 							}
 						}
 					}
@@ -2017,7 +2028,7 @@ module.exports = (_ => {
 				BDFDB.TooltipUtils = {};
 				BDFDB.TooltipUtils.create = function (anker, text, config = {}) {
 					if (!text && !config.guild) return null;
-					const itemLayerContainer = document.querySelector(`${BDFDB.dotCN.app} ~ ${BDFDB.dotCN.itemlayercontainer}:has(${BDFDB.dotCN.itemlayercontainerclicktrap})`) || document.querySelector(`${BDFDB.dotCN.app} ~ ${BDFDB.dotCN.itemlayercontainer}`) || document.querySelector(BDFDB.dotCN.itemlayercontainer);
+					const itemLayerContainer = document.querySelector(`${BDFDB.dotCN.app} ~ ${BDFDB.dotCN.itemlayercontainer}:has(${BDFDB.notCN.pictureinpicture})`) || document.querySelector(`${BDFDB.dotCN.app} ~ ${BDFDB.dotCN.itemlayercontainer}:empty`) || document.querySelector(`${BDFDB.dotCN.app} ~ ${BDFDB.dotCN.itemlayercontainer}`) || document.querySelector(BDFDB.dotCN.itemlayercontainer);
 					if (!itemLayerContainer || !Node.prototype.isPrototypeOf(anker) || !document.contains(anker)) return null;
 					const id = BDFDB.NumberUtils.generateId(Tooltips);
 					const wrapper = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN.itemlayercontainerclicktrap}"><div class="${BDFDB.disCNS.itemlayer + BDFDB.disCN.itemlayerdisabledpointerevents}"><div class="${BDFDB.disCN.tooltip}" tooltip-id="${id}"><div class="${BDFDB.disCN.tooltipcontent}"></div><div class="${BDFDB.disCNS.tooltippointer + BDFDB.disCN.tooltippointerbg}"></div><div class="${BDFDB.disCN.tooltippointer}"></div></div></div></div>`);
@@ -2265,7 +2276,7 @@ module.exports = (_ => {
 					let remaining = new Set(searchEntries.map(e => e.type));
 					if (remaining.size) {
 						const req = Internal.getWebModuleReq();
-						const isSearchable = (m, checkObject) => m && (checkObject && typeof m == "object" || typeof m == "function") && !m.constructor.toLocaleString().startsWith("function DOMTokenList()") && typeof m.toLocaleString == "function" && m.toLocaleString().indexOf("IntlMessagesProxy") == -1;
+						const isSearchable = (m, checkObject) => m && (checkObject && typeof m == "object" || typeof m == "function") && !(m instanceof DOMTokenList) && m[Symbol.toStringTag] !== "IntlMessagesProxy";
 						let moduleCache = BDFDB.DataUtils.load(BDFDB, "ModuleIdCache") || {};
 						let cacheChanged = false;
 						for (let k in moduleCache) if (moduleCache[k] === false || !InternalData.PatchModules[k]) { delete moduleCache[k]; cacheChanged = true; }
@@ -4565,12 +4576,29 @@ module.exports = (_ => {
 					}, instant ? 0 : 1000);
 				};
 				
+				let classCache = BDFDB.DataUtils.load(BDFDB, "ClassModuleCache") || {}, classSave = null;
 				const DiscordClassModules = Object.assign({}, InternalData.CustomClassModules);
 				Internal.DiscordClassModules = new Proxy(DiscordClassModules, {
 					get: function (_, item) {
 						if (DiscordClassModules[item]) return DiscordClassModules[item];
 						if (!InternalData.DiscordClassModules[item]) return;
+						if (item in classCache) {
+							let m = Internal.getWebModuleReq().c[classCache[item]]?.exports;
+							if (m && m != window && [InternalData.DiscordClassModules[item].props].flat(10).every(p => typeof m[p] == "string")) return DiscordClassModules[item] = m;
+							delete classCache[item];
+						}
 						DiscordClassModules[item] = BDFDB.ModuleUtils.findStringObject(InternalData.DiscordClassModules[item].props, Object.assign({}, InternalData.DiscordClassModules[item]));
+						if (DiscordClassModules[item]) {
+							let req = Internal.getWebModuleReq();
+							for (let i in req.c) if (req.c[i].exports === DiscordClassModules[item]) {
+								classCache[item] = i; break;
+							}
+						}
+						else delete classCache[item];
+						if (!classSave) classSave = setTimeout(() => {
+							classSave = null;
+							BDFDB.DataUtils.save(classCache, BDFDB, "ClassModuleCache");
+						}, 100);
 						return DiscordClassModules[item] ? DiscordClassModules[item] : undefined;
 					}
 				});
@@ -6053,7 +6081,6 @@ module.exports = (_ => {
 																		label: BDFDB.LanguageUtils.getName(BDFDB.LanguageUtils.languages[id])
 																	})),
 																	searchable: true,
-																	optionRenderer: lang => lang.label,
 																	onChange: value => {
 																		this.props.language = value == "$discord" ? undefined : value;
 																		this.handleChange.apply(this, []);
@@ -6220,7 +6247,8 @@ module.exports = (_ => {
 				}
 				
 				CustomComponents.EmojiPickerButton = reactInitialized && class BDFDB_EmojiPickerButton extends Internal.LibraryModules.React.Component {
-					handleEmojiChange(emoji) {
+					handleEmojiChange(value) {
+						let emoji = value.emoji || value;
 						if (emoji != null) {
 							this.props.emoji = emoji.id ? {
 								id: emoji.id,
@@ -7144,15 +7172,6 @@ module.exports = (_ => {
 					}
 				};
 				
-				CustomComponents.Scrollers = new Proxy({}, {
-					get: function (_, item) {
-						if (item == "AUTO") return Internal.LibraryComponents.ScrollerBase(BDFDB.disCN.scrollerauto, BDFDB.disCN.scrollerfade, BDFDB.disCN.scrollercustomtheme);
-						else if (item == "Thin") return Internal.LibraryComponents.ScrollerBase(BDFDB.disCN.scrollerthin, BDFDB.disCN.scrollerfade, BDFDB.disCN.scrollercustomtheme);
-						else if (item == "None") return Internal.LibraryComponents.ScrollerBase(BDFDB.disCN.scrollernone, BDFDB.disCN.scrollerfade, BDFDB.disCN.scrollercustomtheme);
-						else return "div";
-					}
-				});
-				
 				CustomComponents.SearchBar = reactInitialized && class BDFDB_SearchBar extends Internal.LibraryModules.React.Component {
 					handleChange(query) {
 						this.props.query = query;
@@ -7190,7 +7209,7 @@ module.exports = (_ => {
 										className: this.props.inputClassName,
 										autoFocus: this.props.autoFocus ? this.props.autoFocus : false,
 										maxVisibleItems: this.props.maxVisibleItems || 7,
-										renderOptionLabel: this.props.optionRenderer,
+										renderOptionLabel: typeof this.props.optionRenderer == "function" ? this.props.optionRenderer : (n => n.label),
 										select: this.handleChange.bind(this),
 										serialize: typeof this.props.serialize == "function" ? this.props.serialize : _ => {},
 										isSelected: typeof this.props.isSelected == "function" ? this.props.isSelected : (value => this.props.value == value)
@@ -7668,161 +7687,31 @@ module.exports = (_ => {
 				};
 				if (CustomComponents.SvgIcon) CustomComponents.SvgIcon.Names = InternalData.SvgIcons || {};
 				
-				const SwitchIconPaths = {
-					a: {
-						TOP: "M5.13231 6.72963L6.7233 5.13864L14.855 13.2704L13.264 14.8614L5.13231 6.72963Z",
-						BOTTOM: "M13.2704 5.13864L14.8614 6.72963L6.72963 14.8614L5.13864 13.2704L13.2704 5.13864Z"
-					},
-					b: {
-						TOP: "M6.56666 11.0013L6.56666 8.96683L13.5667 8.96683L13.5667 11.0013L6.56666 11.0013Z",
-						BOTTOM: "M13.5582 8.96683L13.5582 11.0013L6.56192 11.0013L6.56192 8.96683L13.5582 8.96683Z"
-					},
-					c: {
-						TOP: "M7.89561 14.8538L6.30462 13.2629L14.3099 5.25755L15.9009 6.84854L7.89561 14.8538Z",
-						BOTTOM: "M4.08643 11.0903L5.67742 9.49929L9.4485 13.2704L7.85751 14.8614L4.08643 11.0903Z"
-					}
-				};
-				const SwitchInner = function (props) {
-					let reducedMotion = BDFDB.ReactUtils.useContext(Internal.LibraryModules.PreferencesContext.AccessibilityPreferencesContext).reducedMotion;
-					let ref = BDFDB.ReactUtils.useRef(null);
-					let state = BDFDB.ReactUtils.useState(false);
-					let animation = Internal.LibraryComponents.Animations.useSpring({
-						config: {
-							mass: 1,
-							tension: 250
-						},
-						opacity: props.disabled ? .3 : 1,
-						state: state[0] ? (props.value ? .7 : .3) : (props.value ? 1 : 0)
-					});
-					let fill = animation.state.to({
-						output: [props.uncheckedColor, props.checkedColor]
-					});
-					let mini = props.size == Internal.LibraryComponents.Switch.Sizes.MINI;
-					
-					return BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Animations.animated.div, {
-						className: BDFDB.DOMUtils.formatClassName(props.className, BDFDB.disCN.switch, props.value && BDFDB.disCN.switchchecked, mini && BDFDB.disCN.switchmini),
-						onMouseDown: _ => {
-							return !props.disabled && state[1](true);
-						},
-						onMouseUp: _ => {
-							return state[1](false);
-						},
-						onMouseLeave: _ => {
-							return state[1](false);
-						},
-						style: {
-							opacity: animation.opacity,
-							backgroundColor: animation.state.to({
-								output: [props.uncheckedColor, props.checkedColor]
-							})
-						},
-						tabIndex: -1,
-						children: [
-							BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Animations.animated.svg, {
-								className: BDFDB.disCN.switchslider,
-								viewBox: "0 0 28 20",
-								preserveAspectRatio: "xMinYMid meet",
-								style: {
-									left: animation.state.to({
-										range: [0, .3, .7, 1],
-										output: mini ? [-1, 2, 6, 9] : [-3, 1, 8, 12]
-									})
-								},
-								children: [
-									BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Animations.animated.rect, {
-										fill: "white",
-										x: animation.state.to({
-											range: [0, .3, .7, 1],
-											output: [4, 0, 0, 4]
-										}),
-										y: animation.state.to({
-											range: [0, .3, .7, 1],
-											output: [0, 1, 1, 0]
-										}),
-										height: animation.state.to({
-											range: [0, .3, .7, 1],
-											output: [20, 18, 18, 20]
-										}),
-										width: animation.state.to({
-											range: [0, .3, .7, 1],
-											output: [20, 28, 28, 20]
-										}),
-										rx: "10"
-									}),
-									BDFDB.ReactUtils.createElement("svg", {
-										viewBox: "0 0 20 20",
-										fill: "none",
-										children: [
-											BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Animations.animated.path, {
-												fill: fill,
-												d: animation.state.to({
-													range: [0, .3, .7, 1],
-													output: reducedMotion.enabled ? [SwitchIconPaths.a.TOP, SwitchIconPaths.a.TOP, SwitchIconPaths.c.TOP, SwitchIconPaths.c.TOP] : [SwitchIconPaths.a.TOP, SwitchIconPaths.b.TOP, SwitchIconPaths.b.TOP, SwitchIconPaths.c.TOP]
-												})
-											}),
-											BDFDB.ReactUtils.createElement(Internal.LibraryComponents.Animations.animated.path, {
-												fill: fill,
-												d: animation.state.to({
-													range: [0, .3, .7, 1],
-													output: reducedMotion.enabled ? [SwitchIconPaths.a.BOTTOM, SwitchIconPaths.a.BOTTOM, SwitchIconPaths.c.BOTTOM, SwitchIconPaths.c.BOTTOM] : [SwitchIconPaths.a.BOTTOM, SwitchIconPaths.b.BOTTOM, SwitchIconPaths.b.BOTTOM, SwitchIconPaths.c.BOTTOM]
-												})
-											})
-										]
-									})
-								]
-							}),
-							BDFDB.ReactUtils.createElement("input", BDFDB.ObjectUtils.exclude(Object.assign({}, props, {
-								id: props.id,
-								type: "checkbox",
-								ref: ref,
-								className: BDFDB.DOMUtils.formatClassName(props.inputClassName, BDFDB.disCN.switchinner),
-								tabIndex: props.disabled ? -1 : 0,
-								onKeyDown: e => {
-									if (!props.disabled && !e.repeat && (e.key == " " || e.key == "Enter")) state[1](true);
-								},
-								onKeyUp: e => {
-									if (!props.disabled && !e.repeat) {
-										state[1](false);
-										if (e.key == "Enter" && ref.current) ref.current.click();
-									}
-								},
-								onChange: e => {
-									state[1](false);
-									if (typeof props.onChange == "function") props.onChange((e.currentTarget || e.target).checked, e);
-								},
-								checked: props.value,
-								disabled: props.disabled
-							}), "uncheckedColor", "checkedColor", "size", "value"))
-						]
-					});
-				};
 				CustomComponents.Switch = reactInitialized && class BDFDB_Switch extends Internal.LibraryModules.React.Component {
-					render () {
-						return BDFDB.ReactUtils.createElement(class extends Internal.LibraryModules.React.Component {
-							handleChange() {
-								this.props.value = !this.props.value;
-								if (typeof this.props.onChange == "function") this.props.onChange(this.props.value, this);
-								BDFDB.ReactUtils.forceUpdate(this);
-							}
-							render() {
-								return BDFDB.ReactUtils.createElement(SwitchInner, Object.assign({}, this.props, {
-									onChange: this.handleChange.bind(this)
-								}));
-							}
-						}, this.props);
+					handleChange(e) {
+						this.props.value = e;
+						if (typeof this.props.onChange == "function") this.props.onChange(e, this);
+						BDFDB.ReactUtils.forceUpdate(this);
+					}
+					handleClick(e) {if (typeof this.props.onClick == "function") this.props.onClick(e, this);}
+					handleContextMenu(e) {if (typeof this.props.onContextMenu == "function") this.props.onContextMenu(e, this);}
+					handleMouseDown(e) {if (typeof this.props.onMouseDown == "function") this.props.onMouseDown(e, this);}
+					handleMouseUp(e) {if (typeof this.props.onMouseUp == "function") this.props.onMouseUp(e, this);}
+					handleMouseEnter(e) {if (typeof this.props.onMouseEnter == "function") this.props.onMouseEnter(e, this);}
+					handleMouseLeave(e) {if (typeof this.props.onMouseLeave == "function") this.props.onMouseLeave(e, this);}
+					render() {
+						return BDFDB.ReactUtils.createElement(Internal.NativeSubComponents.Switch, Object.assign({}, this.props, {
+							checked: this.props.value,
+							onChange: this.handleChange.bind(this),
+							onClick: this.handleClick.bind(this),
+							onContextMenu: this.handleContextMenu.bind(this),
+							onMouseUp: this.handleMouseDown.bind(this),
+							onMouseDown: !this.props.disabled && this.handleMouseUp.bind(this),
+							onMouseEnter: this.handleMouseEnter.bind(this),
+							onMouseLeave: this.handleMouseLeave.bind(this)
+						}));
 					}
 				};
-				if (CustomComponents.Switch) {
-					CustomComponents.Switch.Sizes = {
-						DEFAULT: "default",
-						MINI: "mini",
-					};
-					Internal.setDefaultProps(CustomComponents.Switch, {
-						size: CustomComponents.Switch.Sizes.DEFAULT,
-						uncheckedColor: Internal.DiscordConstants.Colors.PRIMARY_400,
-						checkedColor: Internal.DiscordConstants.Colors.BRAND
-					});
-				}
 				
 				CustomComponents.TabBar = reactInitialized && class BDFDB_TabBar extends Internal.LibraryModules.React.Component {
 					handleItemSelect(item) {
@@ -8315,6 +8204,21 @@ module.exports = (_ => {
 						if (RealMenuItems[item]) return RealMenuItems[item];
 						if (MappedMenuItems[item] && RealMenuItems[MappedMenuItems[item]]) return RealMenuItems[MappedMenuItems[item]];
 						return null;
+					}
+				});
+				
+				const ScrollerTypes = {};
+				for (let type of Object.keys(Internal.LibraryComponents.Scrollers)) {
+					let scroller = BDFDB.ReactUtils.hookCall(Internal.LibraryComponents.Scrollers[type].render || Internal.LibraryComponents.Scrollers[type], []);
+					if (scroller && scroller.props && scroller.props.className) {
+						if (scroller.props.className.indexOf(BDFDB.disCN.scrollernone) > -1) ScrollerTypes.None = Internal.LibraryComponents.Scrollers[type];
+						if (scroller.props.className.indexOf(BDFDB.disCN.scrollerauto) > -1) ScrollerTypes.Auto = Internal.LibraryComponents.Scrollers[type];
+						if (scroller.props.className.indexOf(BDFDB.disCN.scrollerthin) > -1) ScrollerTypes.Thin = Internal.LibraryComponents.Scrollers[type];
+					}
+				}
+				LibraryComponents.Scrollers = new Proxy(ScrollerTypes, {
+					get: function (_, item) {
+						return ScrollerTypes[item] || "div";
 					}
 				});
 				
